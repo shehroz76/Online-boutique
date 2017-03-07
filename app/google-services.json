@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1006060263372",
+    "firebase_url": "https://fir-javascript.firebaseio.com",
+    "project_id": "fir-javascript",
+    "storage_bucket": "fir-javascript.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1006060263372:android:82a874f33d95a388",
+        "android_client_info": {
+          "package_name": "com.example.msk.onlinebotique"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1006060263372-ajtqpt06vqqheu3mbs0d0cc4umjd7gp4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.msk.onlinebotique",
+            "certificate_hash": "d8bc35576d09d0c0b4c396e0db29e78f734ba508"
+          }
+        },
+        {
+          "client_id": "1006060263372-rj6rspsbebvbigtumrai2nnrkg0uof6i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0ISbRn-YTh70BKqBDcNqJHIQDxYXXtCI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1006060263372-rj6rspsbebvbigtumrai2nnrkg0uof6i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

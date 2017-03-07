@@ -1,5 +1,6 @@
 package com.example.msk.onlinebotique;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
@@ -33,6 +34,23 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
+
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        int count = getFragmentManager().getBackStackEntryCount();
+        if (count == 0) {
+            super.onBackPressed();
+            //additional code
+            Intent startMain = new Intent(Intent.ACTION_MAIN);
+            startMain.addCategory(Intent.CATEGORY_HOME);
+            startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(startMain);
+        } else {
+            getFragmentManager().popBackStack();
+        }
 
     }
 

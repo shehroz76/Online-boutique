@@ -11,6 +11,7 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -34,6 +35,14 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:1.2.1'
     compile 'com.jakewharton:butterknife:8.5.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    compile 'com.google.android.gms:play-services:9.2.0'
+    compile 'com.google.firebase:firebase-database:9.2.0'
+    compile 'com.google.android.gms:play-services-auth:9.2.0'
+    compile 'com.google.android.gms:play-services-gcm:9.2.0'
+    compile 'com.google.firebase:firebase-storage:9.2.0'
+    compile 'com.google.firebase:firebase-messaging:9.2.0'
+    compile 'com.android.support:multidex:1.0.1'
 
     testCompile 'junit:junit:4.12'
 }
+apply plugin: 'com.google.gms.google-services'
