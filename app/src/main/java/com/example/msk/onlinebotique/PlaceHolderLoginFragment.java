@@ -78,6 +78,7 @@ public class PlaceHolderLoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
 
+        View rootView = inflater.inflate(R.layout.fragment_login, container ,false);
         // [START initialize_auth]
         mAuth = FirebaseAuth.getInstance();
 // [END initialize_auth]
@@ -110,13 +111,17 @@ public class PlaceHolderLoginFragment extends Fragment {
         };
 // [END auth_state_listener]
 
-        View rootView = inflater.inflate(R.layout.fragment_login, container ,false);
+
 
 
         ButterKnife.bind(this , rootView);
 
-
-
+//
+//        if(getActivity().getSupportFragmentManager().findFragmentById(R.id.container) != null) {
+//            getActivity().getSupportFragmentManager()
+//                    .beginTransaction().
+//                    remove(getActivity().getSupportFragmentManager().findFragmentById(R.id.container)).commit();
+//        }
 
 
 
@@ -191,7 +196,7 @@ public class PlaceHolderLoginFragment extends Fragment {
 
 
             mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener((Executor) this, new OnCompleteListener<AuthResult>() {
+                    .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());

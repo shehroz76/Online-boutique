@@ -20,7 +20,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // Adding a Fragment
 
-        if(savedInstanceState==null){
+        if (savedInstanceState == null) {
 
             // Instance of first fragment
             PlaceHolderLoginFragment placeHolderLoginFragment = new PlaceHolderLoginFragment();
@@ -33,28 +33,43 @@ public class LoginActivity extends AppCompatActivity {
         }
 
 
-
-
     }
+
+//    @Override
+//    public void onBackPressed() {
+//
+////        int count = getFragmentManager().getBackStackEntryCount();
+////        if (count == 0) {
+//            Intent startMain = new Intent(Intent.ACTION_MAIN);
+//            startMain.addCategory(Intent.CATEGORY_HOME);
+//            startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            startActivity(startMain);
+//            super.onBackPressed();
+//
+////        } else if(count==1) {
+////
+////            super.onBackPressed();}
+////        else
+////            getFragmentManager().popBackStack();
+//////            additional code
+////
+////        }
+//
+//    }
+
 
     @Override
     public void onBackPressed() {
-
-        int count = getFragmentManager().getBackStackEntryCount();
-        if (count == 0) {
-            super.onBackPressed();
-            //additional code
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0)
+            getSupportFragmentManager().popBackStack();
+        else {
             Intent startMain = new Intent(Intent.ACTION_MAIN);
             startMain.addCategory(Intent.CATEGORY_HOME);
             startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(startMain);
-        } else {
-            getFragmentManager().popBackStack();
+            super.onBackPressed();
+            finish();
         }
 
     }
-
-
-
-
 }
