@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -151,9 +152,21 @@ public class PlaceHolderLoginFragment extends Fragment {
     @OnClick(R.id.textViewSignUp)
     public void SignUp(){
 
-        getActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.container,new PlaceHolderSignUpFragment()).addToBackStack(null).commit(); // replace flContainer
+//        getActivity().getSupportFragmentManager()
+//                .beginTransaction()
+//                .replace(R.id.container,new PlaceHolderSignUpFragment()).addToBackStack(null).commit(); // replace flContainer
+
+
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.setCustomAnimations(R.anim.slide_in_left, 0, 0, R.anim.slide_out_left);
+
+        PlaceHolderSignUpFragment newFragment = new PlaceHolderSignUpFragment();
+
+        ft.replace(R.id.container, newFragment, "detailFragment").addToBackStack(null);
+
+// Start the animated transition.
+        ft.commit();
+
     }
 
 
