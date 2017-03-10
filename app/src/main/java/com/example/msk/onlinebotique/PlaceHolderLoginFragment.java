@@ -38,7 +38,7 @@ import static android.content.ContentValues.TAG;
  * Created by MSk on 06/03/2017.
  */
 
-public class PlaceHolderLoginFragment extends Fragment {
+public class PlaceHolderLoginFragment extends android.support.v4.app.Fragment {
 
 
  // Bind Views Using ButterKnife Library
@@ -116,6 +116,9 @@ public class PlaceHolderLoginFragment extends Fragment {
 
 
         ButterKnife.bind(this , rootView);
+
+        emailEditText.addTextChangedListener(mTextWatcher);
+        passwordEditText.addTextChangedListener(mTextWatcher);
 
 //
 //        if(getActivity().getSupportFragmentManager().findFragmentById(R.id.container) != null) {
@@ -284,8 +287,6 @@ public class PlaceHolderLoginFragment extends Fragment {
             SignIn.setEnabled(true);
             SignIn.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         }
-
-
 
 
 

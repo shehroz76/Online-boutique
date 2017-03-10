@@ -20,7 +20,7 @@ import butterknife.OnClick;
  * Created by MSk on 09/03/2017.
  */
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends android.support.v4.app.Fragment {
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;

@@ -15,7 +15,7 @@
                 >
             </corners>
 
-            <solid android:color="#55B0F7" />
+            <solid android:color="@color/colorPrimaryDark" />
         </shape>
     </item>
 

@@ -22,6 +22,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,7 +35,7 @@ import static com.example.msk.onlinebotique.Patterns.MIN_PASSWORD_LENGTH;
  * Created by MSk on 06/03/2017.
  */
 
-public class PlaceHolderSignUpFragment extends Fragment {
+public class PlaceHolderSignUpFragment extends android.support.v4.app.Fragment {
 
 
 
@@ -63,6 +64,7 @@ public class PlaceHolderSignUpFragment extends Fragment {
     @BindView(R.id.buttonSignUp)
     Button signUpButton;
 
+    private DatabaseReference mSignUpDatabasereference;
     private FirebaseAuth mAuth;
     private static final String TAG = "User signup :" ;
 
@@ -74,6 +76,9 @@ public class PlaceHolderSignUpFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_signup,container, false);
 
         mAuth = FirebaseAuth.getInstance();
+
+        mSignUpDatabasereference = FirebaseDatabase.getInstance().getReference().child("USers_Info");
+
 
         mProgress = new ProgressDialog(getActivity());
 
@@ -174,15 +179,17 @@ public class PlaceHolderSignUpFragment extends Fragment {
                                 String user_id = mAuth.getCurrentUser().getUid();
 
 
-//                                DatabaseReference current_user_db = mDatabaseUsersignUp.child(user_id);
+                                DatabaseReference current_user_db = mSignUpDatabasereference.child(user_id);
 
 
-//                                current_user_db.child("Email").setValue(userEmail);
-//                                current_user_db.child("Name").setValue(userFirstName + " " + userLastName);
-//                                current_user_db.child("Batch").setValue(userBatchNo);
+                                current_user_db.child("Email").setValue(userEmail);
+                                current_user_db.child("Name").setValue(userFirstName + " " + userLastName);
+                                current_user_db.child("User_UId").setValue(user_id);
+                                current_user_db.child("User_Id").setValue(userId);
+                                current_user_db.child("User_Pass").setValue(userConfirmPassword);
                                 mProgress.dismiss();
 
-                                Intent signinIntent = new Intent(getActivity(), LoginActivity.class);
+                                Intent signinIntent = new Intent(getActivity(), SetupActivity.class);
                                 signinIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(signinIntent);
 
