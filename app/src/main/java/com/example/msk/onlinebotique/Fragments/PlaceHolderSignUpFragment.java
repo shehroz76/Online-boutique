@@ -1,11 +1,10 @@
-package com.example.msk.onlinebotique;
+package com.example.msk.onlinebotique.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -17,10 +16,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.msk.onlinebotique.Activities.SetupActivity;
+import com.example.msk.onlinebotique.Utilities.Patterns;
+import com.example.msk.onlinebotique.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -28,7 +31,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.example.msk.onlinebotique.Patterns.MIN_PASSWORD_LENGTH;
+import static com.example.msk.onlinebotique.Utilities.Patterns.MIN_PASSWORD_LENGTH;
 
 
 /**
@@ -177,6 +180,7 @@ public class PlaceHolderSignUpFragment extends android.support.v4.app.Fragment {
 
                             if(task.isSuccessful()) {
                                 String user_id = mAuth.getCurrentUser().getUid();
+                                sendVerificationEmail();
 
 
                                 DatabaseReference current_user_db = mSignUpDatabasereference.child(user_id);
@@ -207,6 +211,37 @@ public class PlaceHolderSignUpFragment extends android.support.v4.app.Fragment {
                         }
                     });
         }
+
+    }
+
+    private void sendVerificationEmail() {
+
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        user.sendEmailVerification()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            // email sent
+
+
+                            // after email is sent just logout the user and finish this activity
+                            Toast.makeText(getActivity() , "email send" ,Toast.LENGTH_SHORT).show();
+
+                        }
+                        else
+                        {
+                            // email not sent, so display message and restart the activity or do whatever you wish to do
+                            Toast.makeText(getActivity() , "email not send" ,Toast.LENGTH_SHORT).show();
+                            //restart this activity
+
+
+                        }
+                    }
+                });
+
 
     }
 

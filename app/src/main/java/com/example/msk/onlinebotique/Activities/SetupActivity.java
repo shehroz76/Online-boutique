@@ -1,15 +1,21 @@
-package com.example.msk.onlinebotique;
+package com.example.msk.onlinebotique.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+
+import com.example.msk.onlinebotique.R;
+import com.example.msk.onlinebotique.Fragments.SetupFragment;
 
 /**
  * Created by MSk on 09/03/2017.
  */
 
 public class SetupActivity extends AppCompatActivity {
+
+
 
 
     @Override
@@ -32,4 +38,24 @@ public class SetupActivity extends AppCompatActivity {
             ft.commit();
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0)
+            getSupportFragmentManager().popBackStack();
+
+
+
+        else {
+            Intent startMain = new Intent(Intent.ACTION_MAIN);
+            startMain.addCategory(Intent.CATEGORY_HOME);
+            startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(startMain);
+            super.onBackPressed();
+            finish();
+        }
+
+    }
+
+
 }

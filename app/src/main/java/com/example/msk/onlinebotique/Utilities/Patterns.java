@@ -1,4 +1,4 @@
-package com.example.msk.onlinebotique;
+package com.example.msk.onlinebotique.Utilities;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

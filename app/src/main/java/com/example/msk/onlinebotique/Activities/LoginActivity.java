@@ -1,10 +1,12 @@
-package com.example.msk.onlinebotique;
+package com.example.msk.onlinebotique.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+
+import com.example.msk.onlinebotique.Fragments.PlaceHolderLoginFragment;
+import com.example.msk.onlinebotique.R;
 
 /**
  * Created by MSk on 14/02/2017.

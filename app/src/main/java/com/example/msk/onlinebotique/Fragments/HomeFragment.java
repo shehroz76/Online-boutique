@@ -1,15 +1,19 @@
-package com.example.msk.onlinebotique;
+package com.example.msk.onlinebotique.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.example.msk.onlinebotique.Activities.LoginActivity;
+import com.example.msk.onlinebotique.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -52,6 +56,10 @@ public class HomeFragment extends android.support.v4.app.Fragment {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
+
+
+
+
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
 //
 //                    mProgress.setMessage("Updating..");
@@ -130,6 +138,8 @@ public class HomeFragment extends android.support.v4.app.Fragment {
         return rootView;
     }
 
+
+
     @Override
     public void onStop() {
         super.onStop();
@@ -148,7 +158,6 @@ public class HomeFragment extends android.support.v4.app.Fragment {
      @OnClick(R.id.signOut)
     public void Signout() {
         FirebaseAuth.getInstance().signOut();
-
     }
 
 

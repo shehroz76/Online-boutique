@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">Online Botique</string>
+
+
+    <string-array name="Country_Name">
+        <item>Pakistan</item>
+        <item>China</item>
+        <item>Usa</item>
+    </string-array>
+
+    <string-array name="City_Name">
+        <item>Karachi</item>
+        <item>Lahore</item>
+        <item>Islamabad</item>
+    </string-array>
+
+
+
 </resources>
