@@ -4,23 +4,36 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.msk.onlinebotique.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
+
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,7 +56,10 @@ public class SetupFragment extends android.support.v4.app.Fragment {
     private FirebaseAuth mAuth;
     private StorageReference mStorageUserImage;
 
+
+
     private ProgressDialog mProgress;
+    private DatabaseReference mEmailVerfiedDatabaseRefernce;
 
 
     @BindView(R.id.CitySpinner)
@@ -56,9 +72,6 @@ public class SetupFragment extends android.support.v4.app.Fragment {
     @BindView(R.id.profile_image_setup)
     CircleImageView ProfilePicUpload;
 
-    @BindView(R.id.emailVerification)
-    TextView EmailVerification;
-
     @BindView(R.id.Seller)
     Button SellerButton;
 
@@ -67,6 +80,11 @@ public class SetupFragment extends android.support.v4.app.Fragment {
 
     @BindView(R.id.DoneButton)
     Button DoneButton;
+
+    @BindView(R.id.emailVerification)
+    TextView isEmailVerified;
+
+
 
     ArrayAdapter<CharSequence> CitySpinnerAdapter;
     ArrayAdapter<CharSequence> CountrySpinnerAdapter;
@@ -91,6 +109,8 @@ public class SetupFragment extends android.support.v4.app.Fragment {
         ButterKnife.bind(this,rootView);
 
         mAuth = FirebaseAuth.getInstance();
+        mEmailVerfiedDatabaseRefernce = FirebaseDatabase.getInstance().getReference().child("Email_Verification").child("Email");
+
 
         mDatabaseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
 
@@ -112,6 +132,11 @@ public class SetupFragment extends android.support.v4.app.Fragment {
         CitySpinner.setAdapter(CitySpinnerAdapter);
 
 
+        EmailVerification();
+
+
+
+
         return rootView;
     }
 
@@ -123,7 +148,11 @@ public class SetupFragment extends android.support.v4.app.Fragment {
         profile_gallerY_intent.setType("image/*");
         startActivityForResult(profile_gallerY_intent , Gallery_Request);
 
+
     }
+
+
+
 
 
 
@@ -174,6 +203,123 @@ public class SetupFragment extends android.support.v4.app.Fragment {
         }
 
     }
+
+
+    private void EmailVerification(){
+
+
+
+        mEmailVerfiedDatabaseRefernce.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Map<String, String> map = (Map)dataSnapshot.getValue();
+                            String check_email_verification = map.get("isEmailVerified");
+
+
+                Log.d("abc","value "+dataSnapshot.getValue());
+
+                if(check_email_verification.equals("1")){
+
+
+
+                    isEmailVerified.setTextColor(ContextCompat.getColor(getContext(), R.color.colorGreen));
+                    isEmailVerified.setText("EMAIL VERIFIED");
+
+
+                }else if(check_email_verification.equals("0")){
+
+
+
+                    isEmailVerified.setTextColor(ContextCompat.getColor(getContext(), R.color.colorRed));
+                    isEmailVerified.setText("FIRST VERIFY YOUR EMAIL");
+
+                }
+
+//                String abc = dataSnapshot.getValue(String.class);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
+    }
+
+
+
+    private void checkIfEmailVerified()
+    {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user.isEmailVerified())
+        {
+            // user is verified, so you can finish this activity or send user to activity which you want.
+
+
+//            final String userEmail = emailSIgnUpEditText.getText().toString().trim();
+
+            mEmailVerfiedDatabaseRefernce.child("userEmail");
+
+
+            // 1 for verified
+
+            mEmailVerfiedDatabaseRefernce.child("isEmailVerified").setValue("1");
+
+
+
+            isEmailVerified.setTextColor(getResources().getColor(R.color.colorGreen));
+
+            Toast.makeText(getActivity(), "Successfully logged in", Toast.LENGTH_SHORT).show();
+
+
+        }
+        else
+        {
+            // email is not verified, so just prompt the message to the user and restart this activity.
+            // NOTE: don't forget to log out the user.
+            mEmailVerfiedDatabaseRefernce.child("userEmail");
+
+
+            mEmailVerfiedDatabaseRefernce.child("isEmailVerified").setValue("0");
+
+            //restart this activity
+
+        }
+    }
+
+
+
+
+
+
+
+    private TextWatcher mTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+            checkIfEmailVerified();
+
+        }
+    };
+
+
+
 
 
 

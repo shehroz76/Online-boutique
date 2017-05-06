@@ -153,9 +153,16 @@
                    android:textSize="20sp"
                    android:gravity="center_horizontal"
                    android:id="@+id/emailVerification"
+                   android:text="isEmailVerified"
                    />
 
+
+
             </LinearLayout>
+
+
+
+
 
 
             <Button

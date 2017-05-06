@@ -10,6 +10,15 @@
         android:text="Welcome Home"
         />
 
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:text="Email Verification status"
+        android:id="@+id/isEmailVerified"
+        />
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="100dp"

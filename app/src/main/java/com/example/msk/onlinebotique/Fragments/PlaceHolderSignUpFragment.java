@@ -68,6 +68,8 @@ public class PlaceHolderSignUpFragment extends android.support.v4.app.Fragment {
     Button signUpButton;
 
     private DatabaseReference mSignUpDatabasereference;
+    private DatabaseReference mEmailVerfiedDatabaseRefernce;
+
     private FirebaseAuth mAuth;
     private static final String TAG = "User signup :" ;
 
@@ -81,6 +83,7 @@ public class PlaceHolderSignUpFragment extends android.support.v4.app.Fragment {
         mAuth = FirebaseAuth.getInstance();
 
         mSignUpDatabasereference = FirebaseDatabase.getInstance().getReference().child("USers_Info");
+        mEmailVerfiedDatabaseRefernce = FirebaseDatabase.getInstance().getReference().child("Email_Verification");
 
 
         mProgress = new ProgressDialog(getActivity());
@@ -193,9 +196,19 @@ public class PlaceHolderSignUpFragment extends android.support.v4.app.Fragment {
                                 current_user_db.child("User_Pass").setValue(userConfirmPassword);
                                 mProgress.dismiss();
 
-                                Intent signinIntent = new Intent(getActivity(), SetupActivity.class);
-                                signinIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(signinIntent);
+                                mEmailVerfiedDatabaseRefernce.child("Email").child("isEmailVerified").setValue("0");;
+
+
+                                // 1 for verified
+
+//                                mEmailVerfiedDatabaseRefernce.
+
+
+
+
+                                Intent setupIntent = new Intent(getActivity(), SetupActivity.class);
+                                setupIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(setupIntent);
 
                             }
 
@@ -227,6 +240,7 @@ public class PlaceHolderSignUpFragment extends android.support.v4.app.Fragment {
                             // email sent
 
 
+
                             // after email is sent just logout the user and finish this activity
                             Toast.makeText(getActivity() , "email send" ,Toast.LENGTH_SHORT).show();
 
@@ -234,6 +248,9 @@ public class PlaceHolderSignUpFragment extends android.support.v4.app.Fragment {
                         else
                         {
                             // email not sent, so display message and restart the activity or do whatever you wish to do
+
+
+
                             Toast.makeText(getActivity() , "email not send" ,Toast.LENGTH_SHORT).show();
                             //restart this activity
 

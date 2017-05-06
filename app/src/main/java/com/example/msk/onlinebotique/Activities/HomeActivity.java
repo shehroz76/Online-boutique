@@ -5,12 +5,18 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.msk.onlinebotique.Fragments.HomeFragment;
 import com.example.msk.onlinebotique.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 public class HomeActivity extends AppCompatActivity {
+
+
 
 
 
@@ -19,6 +25,8 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
 
         // Adding a Fragment
@@ -33,8 +41,21 @@ public class HomeActivity extends AppCompatActivity {
         }
 
 
-
-
-
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
