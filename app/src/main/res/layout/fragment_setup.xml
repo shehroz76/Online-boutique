@@ -14,17 +14,7 @@
         android:orientation="vertical"
         >
 
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:gravity="center"
-            android:padding="15dp"
-            android:text="SSUET CONNECT"
-            android:textColor="#fff"
-            android:textSize="25sp" />
+\
 
         <!--<ImageView-->
         <!--android:layout_width="100dp"-->
@@ -153,7 +143,7 @@
                    android:textSize="20sp"
                    android:gravity="center_horizontal"
                    android:id="@+id/emailVerification"
-                   android:text="isEmailVerified"
+                   android:text="Please Verify your Email"
                    />
 
 
@@ -174,6 +164,16 @@
                 android:background="@color/colorPrimaryDark"
                 android:padding="10dp"
                 android:text="DONE"
+                android:textColor="#fff" />
+
+            <Button
+                android:id="@+id/SkipButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:padding="10dp"
+                android:text="SKIP"
                 android:textColor="#fff" />
 
 

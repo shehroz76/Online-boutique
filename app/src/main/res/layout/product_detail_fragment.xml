@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/profile_placeholder"
+        android:scaleType="fitXY"
+        android:id="@+id/imageview_detail"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Leather Shirt"
+        android:textSize="20sp"
+        android:layout_below="@+id/imageview_detail"
+        android:paddingLeft="10dp"
+        android:textStyle="bold"
+        android:padding="20dp"
+        android:id="@+id/product_detail_name"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$ 414"
+        android:padding="20dp"
+        android:id="@+id/product_price_detail"
+        android:layout_below="@+id/imageview_detail"
+        android:layout_alignParentRight="true"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginRight="20dp"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/product_price_detail"
+        android:id="@+id/view1"
+        android:background="@android:color/darker_gray"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view1"
+        android:id="@+id/linear"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:gravity="center">
+
+        <View
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/color1"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/oval_shape"/>
+
+
+        <View
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/color2"
+            android:background="@drawable/oval_shape"/>
+
+
+        <View
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/color3"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/oval_shape"/>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/linear"
+        android:id="@+id/view3"
+        android:background="@android:color/darker_gray"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/linear1"
+        android:layout_below="@+id/view3"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Product Size"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:gravity="center">
+
+
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/sizeSmall"
+                android:elevation="10dp"
+                android:text="S"
+                android:textSize="35sp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/customshape_button"/>
+
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/sizeM"
+                android:elevation="10dp"
+                android:text="M"
+                android:textSize="35sp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/form_bg"/>
+
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/sizeL"
+                android:elevation="15dp"
+                android:text="L"
+                android:textSize="35sp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/customshape_button"/>
+
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/sizeXL"
+                android:elevation="10dp"
+                android:text="XL"
+                android:textSize="35sp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/form_bg"/>
+
+        </LinearLayout>
+
+
+
+
+
+    </LinearLayout>
+
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/Add_to_cart"
+        android:id="@+id/view2"
+        android:background="@android:color/darker_gray"/>
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/oval_shape"
+        android:padding="10dp"
+        android:text="Add to Bag"
+        android:id="@+id/Add_to_cart"
+        android:textColor="#ffff"
+        android:layout_margin="10dp"/>
+
+    
+
+</RelativeLayout>

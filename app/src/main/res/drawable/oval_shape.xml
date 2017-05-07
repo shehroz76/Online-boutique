@@ -8,15 +8,15 @@
                 android:width="100dp"
                 android:height="40dp" />
             <corners
-                android:topLeftRadius="3dp"
-                android:topRightRadius="3dp"
-                android:bottomLeftRadius="3dp"
-                android:bottomRightRadius="3dp"
+                android:topLeftRadius="30dp"
+                android:topRightRadius="30dp"
+                android:bottomLeftRadius="30dp"
+                android:bottomRightRadius="30dp"
                 >
 
             </corners>
 
-            <solid android:color="@color/colorPrimaryDark" />
+            <solid android:color="@color/colorPrimary" />
         </shape>
     </item>
 
