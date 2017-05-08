@@ -44,10 +44,11 @@ import butterknife.OnClick;
  * Created by MSk on 09/03/2017.
  */
 
-public class HomeFragment extends android.support.v4.app.Fragment implements BaseSliderView.OnSliderClickListener ,ViewPagerEx.OnPageChangeListener {
+public class MenCategeroyFragment extends android.support.v4.app.Fragment implements BaseSliderView.OnSliderClickListener ,
+        ViewPagerEx.OnPageChangeListener
+{
 
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
+
     private String TAG;
     private List<Shop> mShopItemList;
 
@@ -58,7 +59,7 @@ public class HomeFragment extends android.support.v4.app.Fragment implements Bas
     SliderLayout mImageSlider;
 
 
-    public HomeFragment() {
+    public MenCategeroyFragment() {
         super();
     }
 
@@ -112,94 +113,8 @@ public class HomeFragment extends android.support.v4.app.Fragment implements Bas
         MenShopAdapter menShopAdapter = new MenShopAdapter(mShopItemList);
         mrecRecyclerViewMen.setAdapter(menShopAdapter);
 
-        mAuth = FirebaseAuth.getInstance();
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-
-                if (user != null ) {
-
-                    checkIfEmailVerified();
-
-                    // User is signed in
 
 
-
-
-                    Log.d(TAG, "onAuthSt" +
-                            "ateChanged:signed_in:" + user.getUid());
-//
-//                    mProgress.setMessage("Updating..");
-//                    mProgress.show();
-//
-//                    UserUid = mAuth.getCurrentUser().getUid();
-//                    DatabaseReference mref=mDatabaseReferenceUserInfo.child(UserUid);
-//                    mref.addValueEventListener(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//
-//                            Map<String, String> map = (Map)dataSnapshot.getValue();
-//                            String name = map.get("Name");
-//                            String batch =map.get("Batch");
-//                            photoUrl =map.get("Profile_Image");
-//                            String Username= map.get("User_Name");
-//
-//                            if (!TextUtils.isEmpty(name)){
-//                                mProfileUserNameMain.setText(name);}
-//                            else
-//                                mProfileUserNameMain.setText("User Name");
-//
-//                            if (!TextUtils.isEmpty(batch)) {
-//                                mProfileUserBatchMain.setText(batch);
-//                            }
-//                            else
-//                                mProfileUserBatchMain.setText("Batch No : -- -- --");
-//
-//                            if(!TextUtils.isEmpty(photoUrl)){
-//
-//                                Picasso.with(MainActivity.this).load(photoUrl).into(mProfileImageMain);
-//
-//                                Picasso.with(MainActivity.this).load(photoUrl).into(mCircleImageViewNavheaderPic);
-//                            }else
-//                                Picasso.with(MainActivity.this).load(R.drawable.profile_placeholder).into(mProfileImageMain);
-//
-//                            if(!TextUtils.isEmpty(Username)){
-//
-//                                mTextViewUserNameNavHead.setText(Username);
-//
-//                            }else
-//                                mTextViewUserNameNavHead.setText("User Name");
-//
-//
-//                            mProgress.dismiss();
-//
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(DatabaseError databaseError) {
-//
-//                        }
-//                    });
-
-
-
-
-
-
-                } else {
-                    // User is signed out
-
-                    Intent loginActivityIntent = new Intent(getActivity() , LoginActivity.class);
-                    loginActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(loginActivityIntent);
-
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                }
-                // ...
-            }
-        };
 
 
 
@@ -212,16 +127,13 @@ public class HomeFragment extends android.support.v4.app.Fragment implements Bas
     @Override
     public void onStop() {
         super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
-        }
+
     }
 
 
     @Override
     public void onStart() {
         super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
     }
 
 
@@ -234,45 +146,7 @@ public class HomeFragment extends android.support.v4.app.Fragment implements Bas
 
 
 
-    private void checkIfEmailVerified()
-    {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        if (user.isEmailVerified())
-        {
-            // user is verified, so you can finish this activity or send user to activity which you want.
-
-
-
-            Snackbar snackbar = Snackbar
-                    .make(getView(), "Successfully Login", Snackbar.LENGTH_SHORT);
-
-            snackbar.show();
-
-
-
-
-        }
-        else
-        {
-            // email is not verified, so just prompt the message to the user and restart this activity.
-            // NOTE: don't forget to log out the user.
-
-            Snackbar snackbar = Snackbar
-                    .make(getView(), "Please Verify Your Email", Snackbar.LENGTH_SHORT);
-
-            snackbar.show();
-
-            FirebaseAuth.getInstance().signOut();
-
-            //restart this activity
-
-        }
-
-
-
-
-    }
 
     private void populatedList() {
         mShopItemList = new ArrayList<Shop>();

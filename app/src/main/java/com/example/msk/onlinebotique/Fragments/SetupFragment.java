@@ -18,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.msk.onlinebotique.Activities.HomeActivity;
 import com.example.msk.onlinebotique.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -146,7 +147,6 @@ public class SetupFragment extends android.support.v4.app.Fragment {
         profile_gallerY_intent.setType("image/*");
         startActivityForResult(profile_gallerY_intent , Gallery_Request);
 
-
     }
 
 
@@ -169,7 +169,24 @@ public class SetupFragment extends android.support.v4.app.Fragment {
 
         buyerButton.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         SellerButton.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+    }
 
+
+    @OnClick(R.id.DoneButton)
+    public void DoneButton(){
+
+        Intent mainActivityIntent =  new Intent(getActivity() , HomeActivity.class);
+        mainActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(mainActivityIntent);
+
+    }
+
+    @OnClick(R.id.SkipButton)
+    public void SkipButton(){
+
+        Intent mainActivityIntent =  new Intent(getActivity() , HomeActivity.class);
+        mainActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(mainActivityIntent);
     }
 
 

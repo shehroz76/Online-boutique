@@ -26,6 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/shopingCart"
+        android:layout_above="@+id/view2"
         android:id="@+id/product_item_recylView"
         ></android.support.v7.widget.RecyclerView>
 
