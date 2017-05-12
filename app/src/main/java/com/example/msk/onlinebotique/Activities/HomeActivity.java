@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.msk.onlinebotique.Fragments.HomeFragment;
+import com.example.msk.onlinebotique.Fragments.ChooseMenWomenFragmnet;
 import com.example.msk.onlinebotique.R;
 
 
@@ -29,7 +29,7 @@ public class HomeActivity extends AppCompatActivity {
         if(savedInstanceState==null){
 
             // Instance of first fragment
-            HomeFragment homeFragment = new HomeFragment();
+            ChooseMenWomenFragmnet homeFragment = new ChooseMenWomenFragmnet();
             // Add Fragment to FrameLayout (flContainer), using FragmentManager
             FragmentTransaction ft= getSupportFragmentManager().beginTransaction();
             ft.add(R.id.home_container,homeFragment);
