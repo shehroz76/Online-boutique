@@ -24,7 +24,7 @@ import butterknife.OnClick;
  * Created by DELL on 5/8/2017.
  */
 
-public class ChooseMenWomenFragmnet extends Fragment {
+public class BuyerHomePageFragment extends Fragment {
 
 
     private FirebaseAuth mAuth;
@@ -32,7 +32,7 @@ public class ChooseMenWomenFragmnet extends Fragment {
     private String TAG = "abc";
 
 
-    public ChooseMenWomenFragmnet() {
+    public BuyerHomePageFragment() {
     }
 
 
@@ -41,7 +41,7 @@ public class ChooseMenWomenFragmnet extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.choose_category,container,false);
+        View view = inflater.inflate(R.layout.buyer_home_page_fragment,container,false);
         ButterKnife.bind(this,view);
 
         mAuth = FirebaseAuth.getInstance();
