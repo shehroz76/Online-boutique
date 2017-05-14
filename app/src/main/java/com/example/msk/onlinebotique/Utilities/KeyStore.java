@@ -38,7 +38,22 @@ public class KeyStore {
 
     public String getString(String key){
 
-        return sharedPreferences.getString(key,null);
+        return sharedPreferences.getString(key,"");
+
+    }
+
+    public void putBoolean(String key, Boolean value){
+
+        SharedPreferences.Editor editor;
+        editor = sharedPreferences.edit();
+
+        editor.putBoolean(key,value);
+        editor.commit();
+    }
+
+    public Boolean getBoolean(String key){
+
+        return sharedPreferences.getBoolean(key,false);
 
     }
 

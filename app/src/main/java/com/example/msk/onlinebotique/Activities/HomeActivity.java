@@ -1,17 +1,19 @@
 package com.example.msk.onlinebotique.Activities;
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
 
 import com.example.msk.onlinebotique.Fragments.BuyerHomePageFragment;
 import com.example.msk.onlinebotique.Fragments.SellerHomePageFragment;
@@ -28,8 +30,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Map;
-
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -45,6 +45,8 @@ public class HomeActivity extends AppCompatActivity {
     private String TAG = "Main";
     private String Category = "";
     private boolean isEmailVerifies = false;
+    private ProgressDialog progress;
+//    ProgressDialog progress;
 
 
     @Override
@@ -54,6 +56,18 @@ public class HomeActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+
+        progress = new ProgressDialog(this, R.layout.custome_progressbar_in_center);
+        progress.getWindow().setGravity(Gravity.CENTER);
+        progress.setMessage("Please wait...");
+        progress.setCancelable(false);
+
+
+
+        mKeyStore = KeyStore.getInstance(getApplicationContext());
+
+
+
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -61,52 +75,87 @@ public class HomeActivity extends AppCompatActivity {
 
                 if (user != null ) {
 
-                    isEmailVerifies = checkIfEmailVerified();
+                   Boolean check = mKeyStore.getBoolean("isEmailVeridied");
 
-                   if (isEmailVerifies==true){
-
-
-                       UserUid = mAuth.getCurrentUser().getUid();
-                       mUserInfoDatabaseReference = FirebaseDatabase.getInstance().getReference().child("USers_Info").child(UserUid);
-
-                       mKeyStore = KeyStore.getInstance(getApplicationContext());
-
-                       mUserInfoDatabaseReference.addValueEventListener(new ValueEventListener() {
-                           @Override
-                           public void onDataChange(DataSnapshot dataSnapshot) {
+                    if(check==false) {
 
 
-                               User user =  dataSnapshot.getValue(User.class);
+                        isEmailVerifies = checkIfEmailVerified();
+
+                        if (isEmailVerifies == true) {
 
 
-                               mKeyStore.putString("Name",user.getName());
-                               mKeyStore.putString("Email",user.getEmail());
-                               mKeyStore.putString("Category",user.getCategory());
-                               mKeyStore.putString("Country",user.getCountry());
-                               mKeyStore.putString("City",user.getCity());
-                               mKeyStore.putString("Profile_pic",user.getProfile_Pic());
-                               mKeyStore.putString("User_id",user.getUser_Id());
-                               mKeyStore.putString("User_UId",user.getUser_UId());
-                               mKeyStore.putString("password",user.getUser_Pass());
-
-                               Category = user.getCategory();
-
-                               // Adding a Fragment
-
-                           }
+                            UserUid = mAuth.getCurrentUser().getUid();
+                            mUserInfoDatabaseReference = FirebaseDatabase.getInstance().getReference().child("USers_Info").child(UserUid);
 
 
-                           @Override
-                           public void onCancelled(DatabaseError databaseError) {
-
-                           }
-                       });
+                            mUserInfoDatabaseReference.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
 
 
-                       // User is signed in
+                                    User user = dataSnapshot.getValue(User.class);
 
 
-                   }
+                                    mKeyStore.putString("Name", user.getName());
+                                    mKeyStore.putString("Email", user.getEmail());
+                                    mKeyStore.putString("Category", user.getCategory());
+                                    mKeyStore.putString("Country", user.getCountry());
+                                    mKeyStore.putString("City", user.getCity());
+                                    mKeyStore.putString("Profile_pic", user.getProfile_Pic());
+                                    mKeyStore.putString("User_id", user.getUser_Id());
+                                    mKeyStore.putString("User_UId", user.getUser_UId());
+                                    mKeyStore.putString("password", user.getUser_Pass());
+                                    mKeyStore.putBoolean("isEmailVeridied", isEmailVerifies);
+
+                                    Category = user.getCategory();
+
+
+                                    // Adding a Fragment
+
+                                    if (savedInstanceState == null) {
+
+                                        if (Category.equals("Buyer")) {
+
+                                            // Instance of first fragment
+                                            BuyerHomePageFragment homeFragment = new BuyerHomePageFragment();
+                                            // Add Fragment to FrameLayout (flContainer), using FragmentManager
+                                            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                                            ft.add(R.id.home_container, homeFragment);
+                                            ft.commit();
+                                            progress.dismiss();
+
+
+                                        } else if (Category.equals("Seller")) {
+
+                                            // Instance of first fragment
+                                            SellerHomePageFragment sellerhomeFragment = new SellerHomePageFragment();
+                                            // Add Fragment to FrameLayout (flContainer), using FragmentManager
+                                            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                                            ft.add(R.id.home_container, sellerhomeFragment);
+                                            ft.commit();
+                                            progress.dismiss();
+
+                                        }
+
+
+                                    }
+
+                                }
+
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+
+
+                            // User is signed in
+
+
+                        }
+                    }
                     Log.d(TAG, "onAuthSt" +
                             "ateChanged:signed_in:" + user.getUid());
 
@@ -129,12 +178,16 @@ public class HomeActivity extends AppCompatActivity {
         };
 
 
-        Category = mKeyStore.getString("Category");
 
+        Category = mKeyStore.getString("Category");
 
         if(savedInstanceState==null){
 
-            if(Category.equals("Buyer")){
+            if(Category.equals("")){
+
+                progress.show();
+
+            }else if(Category.equals("Buyer")){
 
                 // Instance of first fragment
                 BuyerHomePageFragment homeFragment = new BuyerHomePageFragment();
@@ -142,6 +195,7 @@ public class HomeActivity extends AppCompatActivity {
                 FragmentTransaction ft= getSupportFragmentManager().beginTransaction();
                 ft.add(R.id.home_container,homeFragment);
                 ft.commit();
+                progress.dismiss();
 
 
             }else if (Category.equals("Seller")){
@@ -152,11 +206,13 @@ public class HomeActivity extends AppCompatActivity {
                 FragmentTransaction ft= getSupportFragmentManager().beginTransaction();
                 ft.add(R.id.home_container,sellerhomeFragment);
                 ft.commit();
+                progress.dismiss();
 
             }
 
 
         }
+
 
 
 
