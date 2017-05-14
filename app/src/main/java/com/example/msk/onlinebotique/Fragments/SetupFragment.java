@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.example.msk.onlinebotique.Activities.HomeActivity;
 import com.example.msk.onlinebotique.R;
+import com.example.msk.onlinebotique.Utilities.KeyStore;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -96,6 +97,7 @@ public class SetupFragment extends android.support.v4.app.Fragment {
     private String Countryselection;
     private String CitySelection;
     private String SellerOrbuyer = "";
+    private KeyStore mKeyStore;
 
 
     public SetupFragment() {
@@ -114,6 +116,10 @@ public class SetupFragment extends android.support.v4.app.Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_setup,container,false);
         ButterKnife.bind(this,rootView);
+
+        mKeyStore = KeyStore.getInstance(getActivity());
+
+
 
         mAuth = FirebaseAuth.getInstance();
         mEmailVerfiedDatabaseRefernce = FirebaseDatabase.getInstance().getReference().child("Email_Verification").child("Email");
@@ -261,6 +267,8 @@ public class SetupFragment extends android.support.v4.app.Fragment {
                     mDatabaseUsers.child(UserUid).child("Category").setValue(SellerOrbuyer);
                     mDatabaseUsers.child(UserUid).child("Country").setValue(Countryselection);
                     mDatabaseUsers.child(UserUid).child("City").setValue(CitySelection);
+
+                    mKeyStore.putString("Category",SellerOrbuyer);
 
                     Intent mainActivityIntent =  new Intent(getActivity() , HomeActivity.class);
                     mainActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
