@@ -43,6 +43,7 @@ public class HomeActivity extends AppCompatActivity {
     private String mName,mEmail;
     private String TAG = "Main";
     private String Category = "";
+    private Boolean isShopCreated = false;
     private boolean isEmailVerifies = false;
     private ProgressDialog progress;
 //    ProgressDialog progress;
@@ -181,6 +182,8 @@ public class HomeActivity extends AppCompatActivity {
         };
 
 
+        isShopCreated = mKeyStore.getBoolean("isShopCreated");
+
 
         Category = mKeyStore.getString("Category");
 
@@ -203,6 +206,10 @@ public class HomeActivity extends AppCompatActivity {
 
             }else if (Category.equals("Seller")){
 
+
+                if(isShopCreated){
+
+
                 // Instance of first fragment
                 SellerHomePageFragment sellerhomeFragment = new SellerHomePageFragment();
                 // Add Fragment to FrameLayout (flContainer), using FragmentManager
@@ -211,10 +218,21 @@ public class HomeActivity extends AppCompatActivity {
                 ft.commit();
                 progress.dismiss();
 
+                }else {
 
-                Intent intent =new Intent(HomeActivity.this,SellerIntroActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                    // Instance of first fragment
+                    SellerHomePageFragment sellerhomeFragment = new SellerHomePageFragment();
+                    // Add Fragment to FrameLayout (flContainer), using FragmentManager
+                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                    ft.add(R.id.home_container, sellerhomeFragment);
+                    ft.commit();
+                    progress.dismiss();
+
+                    Intent intent = new Intent(HomeActivity.this, SellerIntroActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+
+                }
 
 
 
