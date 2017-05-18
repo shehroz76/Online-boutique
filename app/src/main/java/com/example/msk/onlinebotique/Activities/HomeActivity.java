@@ -13,13 +13,13 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ProgressBar;
 
 import com.example.msk.onlinebotique.Fragments.BuyerHomePageFragment;
 import com.example.msk.onlinebotique.Fragments.SellerHomePageFragment;
 import com.example.msk.onlinebotique.Pojo.User;
 import com.example.msk.onlinebotique.R;
 
+import com.example.msk.onlinebotique.SellerIntroActivity;
 import com.example.msk.onlinebotique.Utilities.KeyStore;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -136,6 +136,10 @@ public class HomeActivity extends AppCompatActivity {
                                             ft.commit();
                                             progress.dismiss();
 
+                                            Intent intent =new Intent(HomeActivity.this,SellerIntroActivity.class);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            startActivity(intent);
+
                                         }
 
 
@@ -207,6 +211,13 @@ public class HomeActivity extends AppCompatActivity {
                 ft.add(R.id.home_container,sellerhomeFragment);
                 ft.commit();
                 progress.dismiss();
+
+
+                Intent intent =new Intent(HomeActivity.this,SellerIntroActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+
+
 
             }
 

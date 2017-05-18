@@ -26,6 +26,11 @@
         <activity android:name=".Activities.RegisterationActivity" />
         <activity android:name=".Activities.SetupActivity"></activity>
         <activity android:name=".Activities.VerifyAcountActivity"></activity>
+        <activity android:name=".SellerIntroActivity"
+            android:theme="@style/Theme.Intro"></activity>
+        <activity android:name=".Activities.BuyerIntroActivity"
+            android:theme="@style/Theme.Intro"/>
+
     </application>
 
 </manifest>

@@ -2,6 +2,35 @@
     <string name="app_name">Online Botique</string>
 
 
+    //buyer Intro Slider..
+    <string name="buyer_intro__heading_1">Welcom to Shopie</string>
+    <string name="buyer_intro__heading_2">Online market</string>
+    <string name="buyer_intro__heading_3">Best Deals</string>
+    <string name="buyer_intro__heading_4">Grab It Now</string>
+    <string name="buyer_intro__heading_5">Start Shoping</string>
+
+    <string name="buyer_intro__desc_1">Shopie Is an App where you find all type of online shops</string>
+    <string name="buyer_intro__desc_2">Now start shoping Online with best deals around the world.</string>
+    <string name="buyer_intro__desc_3">With Shopie You can find best deals with discounted offers and much more</string>
+    <string name="buyer_intro__desc_4">There is soo much deals and prizes waiting for you.So dont wait and start your shoping now</string>
+    <string name="buyer_intro__desc_5">Get dive into now for amazing deals</string>
+
+    //seller Intro Slider
+    <string name="seller_intro__heading_1">Welcom to Shopie</string>
+    <string name="seller_intro__heading_2">Online market</string>
+    <string name="seller_intro__heading_3">Sell your product</string>
+    <string name="seller_intro__heading_4">Get Customers</string>
+    <string name="seller_intro__heading_5">Open a Shop</string>
+
+    <string name="seller_intro__desc_1">Shopie Is an App where you can buy or sell your goods</string>
+    <string name="seller_intro__desc_2">Now make your goods sellout online with shopie</string>
+    <string name="seller_intro__desc_3">With Shopie You can sell your product to thousand of customers around the world</string>
+    <string name="seller_intro__desc_4">Shopie is platform for online shoping where ypu find customers from all over the globe </string>
+    <string name="seller_intro__desc_5">So why still waiting? open a Shop Now</string>
+
+
+
+
     <string-array name="Country_Name">
         <item>Pakistan</item>
         <item>China</item>
