@@ -1,8 +1,7 @@
-package com.example.msk.onlinebotique;
+package com.example.msk.onlinebotique.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
@@ -41,7 +40,7 @@ public class SellerIntroActivity extends IntroActivity {
 //        setButtonNextFunction(BUTTON_NEXT_FUNCTION_NEXT);
 
         /* Show/hide button */
-        setButtonCtaVisible(true);
+//        setButtonCtaVisible(true);
 /* Tint button text */
         setButtonCtaTintMode(BUTTON_CTA_TINT_MODE_TEXT);
 /* Tint button background */
@@ -102,10 +101,14 @@ public class SellerIntroActivity extends IntroActivity {
                 .buttonCtaClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast toast = Toast
-                                .makeText(SellerIntroActivity.this, "Open a Shop", Toast.LENGTH_SHORT);
-                        toast.setGravity(Gravity.CENTER, 0, 0);
-                        toast.show();
+
+
+                        Intent intent = new Intent(SellerIntroActivity.this,ShopSettingActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+
+
+
                     }
                 })
                 .build());

@@ -4,6 +4,10 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name="android.support.multidex.MultiDexApplication"
@@ -12,6 +16,13 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <!--Google MAP API key-->
+
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value=" AIzaSyBxB_75_vt6CC0mBmVDJ7lswNsEW2S-jiw " />
+
         <activity android:name=".Activities.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,10 +37,11 @@
         <activity android:name=".Activities.RegisterationActivity" />
         <activity android:name=".Activities.SetupActivity"></activity>
         <activity android:name=".Activities.VerifyAcountActivity"></activity>
-        <activity android:name=".SellerIntroActivity"
+        <activity android:name=".Activities.SellerIntroActivity"
             android:theme="@style/Theme.Intro"></activity>
         <activity android:name=".Activities.BuyerIntroActivity"
             android:theme="@style/Theme.Intro"/>
+        <activity android:name=".Activities.ShopSettingActivity"></activity>
 
     </application>
 

@@ -19,7 +19,6 @@ import com.example.msk.onlinebotique.Fragments.SellerHomePageFragment;
 import com.example.msk.onlinebotique.Pojo.User;
 import com.example.msk.onlinebotique.R;
 
-import com.example.msk.onlinebotique.SellerIntroActivity;
 import com.example.msk.onlinebotique.Utilities.KeyStore;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
