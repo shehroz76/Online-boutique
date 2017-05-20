@@ -63,7 +63,7 @@ public class ShopingCartFragment extends Fragment {
             productDetail.setProduct_category("Shirt");
             mProductDetailsList.add(productDetail);
         }
-
-
     }
+
+
 }

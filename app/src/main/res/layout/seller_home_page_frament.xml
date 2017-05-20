@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".CatalogActivity">
 
-    <ListView
-        android:id="@+id/list"
+    <com.example.msk.onlinebotique.Utilities.RecyclerViewEmptySupport
+        android:id="@+id/ShopProductsRecyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

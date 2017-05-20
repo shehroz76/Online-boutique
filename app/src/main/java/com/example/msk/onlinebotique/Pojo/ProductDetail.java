@@ -6,6 +6,8 @@ package com.example.msk.onlinebotique.Pojo;
 
 public class ProductDetail {
 
+
+
     private String product_image;
     private String product_name;
     private String product_category;
@@ -23,6 +25,14 @@ public class ProductDetail {
         this.product_price = product_price;
         this.product_total_price = product_total_price;
         this.product_quantity = product_quantity;
+    }
+
+
+    public ProductDetail(String product_image, String product_name, String product_category, int product_price) {
+        this.product_image = product_image;
+        this.product_name = product_name;
+        this.product_category = product_category;
+        this.product_price = product_price;
     }
 
     public String getProduct_image() {

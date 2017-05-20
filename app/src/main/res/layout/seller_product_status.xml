@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Product Name"
+                android:textSize="17sp"
+                android:id="@+id/product_item_name"
+                android:textStyle="bold"
+                android:layout_margin="10dp"
+                />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_above="@+id/total_coast"
+            android:id="@+id/view2"
+            android:background="@android:color/darker_gray"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/shop_placeholder"
+            android:id="@+id/upload_product_pic"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_above="@+id/total_coast"
+            android:id="@+id/view1"
+            android:background="@android:color/darker_gray"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <RatingBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/product_rating"
+                android:numStars="5"
+                android:rating="2.5"/>
+
+
+
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:id="@+id/view3"
+            android:background="@android:color/darker_gray"/>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Orders"
+              android:layout_margin="10dp"
+              android:textSize="25sp"
+              android:textStyle="bold"
+              />
+
+
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:id="@+id/view5"
+            android:background="@android:color/darker_gray"/>
+
+        <com.example.msk.onlinebotique.Utilities.RecyclerViewEmptySupport
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:id="@+id/ordersRecylerView"></com.example.msk.onlinebotique.Utilities.RecyclerViewEmptySupport>
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Comments"
+                android:layout_margin="10dp"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:id="@+id/view"
+            android:background="@android:color/darker_gray"/>
+
+
+        <com.example.msk.onlinebotique.Utilities.RecyclerViewEmptySupport
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:id="@+id/commentsRecylerView"></com.example.msk.onlinebotique.Utilities.RecyclerViewEmptySupport>
+
+
+
+
+    </LinearLayout>
+
+</ScrollView>
