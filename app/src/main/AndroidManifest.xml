@@ -23,7 +23,8 @@
             android:name="com.google.android.maps.v2.API_KEY"
             android:value=" AIzaSyBxB_75_vt6CC0mBmVDJ7lswNsEW2S-jiw " />
 
-        <activity android:name=".Activities.HomeActivity">
+        <activity android:name=".Activities.HomeActivity"
+            android:theme="@style/MaterialDrawerTheme.Light">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
