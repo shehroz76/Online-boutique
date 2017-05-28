@@ -95,7 +95,7 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/profile_image_setup"
+                android:id="@+id/shop_image_setup"
                 android:layout_width="0dp"
                 android:layout_height="100dp"
                 android:layout_weight="1"

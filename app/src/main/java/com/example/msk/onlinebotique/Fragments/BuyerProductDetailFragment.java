@@ -18,9 +18,9 @@ import butterknife.OnClick;
  * Created by DELL on 5/8/2017.
  */
 
-public class ProductDetailFragment extends Fragment {
+public class BuyerProductDetailFragment extends Fragment {
 
-    public ProductDetailFragment() {
+    public BuyerProductDetailFragment() {
     }
 
 

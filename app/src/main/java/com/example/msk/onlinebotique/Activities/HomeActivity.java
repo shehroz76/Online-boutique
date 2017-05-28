@@ -1,6 +1,7 @@
 package com.example.msk.onlinebotique.Activities;
 
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -65,6 +66,7 @@ public class HomeActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private KeyStore mKeyStore;
     private Context context;
+    Toolbar toolbar;
 
     private String mName,mEmail;
     private String TAG = "Main";
@@ -88,7 +90,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
         // Handle Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //set the back arrow in the toolbar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -163,10 +165,174 @@ public class HomeActivity extends AppCompatActivity {
                                             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                                             ft.add(R.id.home_container, homeFragment);
                                             ft.commit();
+
+
+                                            // add buyer nav-drawer
+
+                                            // Create a few sample profile
+                                            // NOTE you have to define the loader logic too. See the CustomApplication for more details
+                                            final IProfile profile = new ProfileDrawerItem().withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon("https://avatars3.githubusercontent.com/u/1476232?v=3&s=460");
+                                            final IProfile profile2 = new ProfileDrawerItem().withName("Bernat Borras").withEmail("alorma@github.com").withIcon(Uri.parse("https://avatars3.githubusercontent.com/u/887462?v=3&s=460"));
+
+                                            // Create the AccountHeader
+                                            headerResult = new AccountHeaderBuilder()
+                                                    .withActivity(HomeActivity.this)
+                                                    .withHeaderBackground(R.drawable.header)
+                                                    .addProfiles(
+                                                            profile, profile2
+                                                    )
+                                                    .withSavedInstance(savedInstanceState)
+                                                    .build();
+
+                                            //Create the drawer
+                                            result = new DrawerBuilder()
+                                                    .withActivity(HomeActivity.this)
+                                                    .withToolbar(toolbar)
+                                                    .withHasStableIds(true)
+                                                    .withDrawerLayout(R.layout.crossfade_drawer)
+                                                    .withDrawerWidthDp(72)
+                                                    .withGenerateMiniDrawer(true)
+                                                    .withAccountHeader(headerResult) //set the AccountHeader we created earlier for the header
+                                                    .addDrawerItems(
+                                                            new PrimaryDrawerItem().withName("Orders").withIcon(FontAwesome.Icon.faw_home).withBadge("22").withBadgeStyle(new BadgeStyle(Color.RED, Color.RED)).withIdentifier(2).withSelectable(false),
+                                                            new PrimaryDrawerItem().withName("Favourites").withIcon(FontAwesome.Icon.faw_gamepad).withIdentifier(3),
+                                                            new PrimaryDrawerItem().withName("Messages").withIcon(FontAwesome.Icon.faw_eye).withIdentifier(4),
+                                                            new PrimaryDrawerItem().withDescription("3 items").withName("draft").withIcon(GoogleMaterial.Icon.gmd_adb).withIdentifier(5),
+                                                            new SecondaryDrawerItem().withName("Fb Page").withIcon(GoogleMaterial.Icon.gmd_facebook).withTag("Bullhorn")
+                                                    ) // add the items we want to use with our Drawer
+                                                    .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                                                        @Override
+                                                        public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                                                            if (drawerItem instanceof Nameable) {
+                                                                Toast.makeText(HomeActivity.this, ((Nameable) drawerItem).getName().getText(HomeActivity.this), Toast.LENGTH_SHORT).show();
+                                                            }
+                                                            //we do not consume the event and want the Drawer to continue with the event chain
+                                                            return false;
+                                                        }
+                                                    })
+                                                    .withSavedInstance(savedInstanceState)
+                                                    .withShowDrawerOnFirstLaunch(true)
+                                                    .build();
+
+                                            //get the CrossfadeDrawerLayout which will be used as alternative DrawerLayout for the Drawer
+                                            //the CrossfadeDrawerLayout library can be found here: https://github.com/mikepenz/CrossfadeDrawerLayout
+                                            crossfadeDrawerLayout = (CrossfadeDrawerLayout) result.getDrawerLayout();
+
+                                            //define maxDrawerWidth
+                                            crossfadeDrawerLayout.setMaxWidthPx(DrawerUIUtils.getOptimalDrawerWidth(HomeActivity.this));
+                                            //add second view (which is the miniDrawer)
+                                            final MiniDrawer miniResult = result.getMiniDrawer();
+                                            //build the view for the MiniDrawer
+                                            View view = miniResult.build(HomeActivity.this);
+                                            //set the background of the MiniDrawer as this would be transparent
+                                            view.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(HomeActivity.this, com.mikepenz.materialdrawer.R.attr.material_drawer_background, com.mikepenz.materialdrawer.R.color.material_drawer_background));
+                                            //we do not have the MiniDrawer view during CrossfadeDrawerLayout creation so we will add it here
+                                            crossfadeDrawerLayout.getSmallView().addView(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+                                            //define the crossfader to be used with the miniDrawer. This is required to be able to automatically toggle open / close
+                                            miniResult.withCrossFader(new ICrossfader() {
+                                                @Override
+                                                public void crossfade() {
+                                                    boolean isFaded = isCrossfaded();
+                                                    crossfadeDrawerLayout.crossfade(400);
+
+                                                    //only close the drawer if we were already faded and want to close it now
+                                                    if (isFaded) {
+                                                        result.getDrawerLayout().closeDrawer(GravityCompat.START);
+                                                    }
+                                                }
+
+                                                @Override
+                                                public boolean isCrossfaded() {
+                                                    return crossfadeDrawerLayout.isCrossfaded();
+                                                }
+                                            });
                                             progress.dismiss();
 
 
+
+
+
                                         } else if (Category.equals("Seller")) {
+
+                                            // Create a few sample profile
+                                            // NOTE you have to define the loader logic too. See the CustomApplication for more details
+                                            final IProfile profile = new ProfileDrawerItem().withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon("https://avatars3.githubusercontent.com/u/1476232?v=3&s=460");
+                                            final IProfile profile2 = new ProfileDrawerItem().withName("Bernat Borras").withEmail("alorma@github.com").withIcon(Uri.parse("https://avatars3.githubusercontent.com/u/887462?v=3&s=460"));
+
+                                            // Create the AccountHeader
+                                            headerResult = new AccountHeaderBuilder()
+                                                    .withActivity(HomeActivity.this)
+                                                    .withHeaderBackground(R.drawable.header)
+                                                    .addProfiles(
+                                                            profile, profile2
+                                                    )
+                                                    .withSavedInstance(savedInstanceState)
+                                                    .build();
+
+                                            //Create the drawer
+                                            result = new DrawerBuilder()
+                                                    .withActivity(HomeActivity.this)
+                                                    .withToolbar(toolbar)
+                                                    .withHasStableIds(true)
+                                                    .withDrawerLayout(R.layout.crossfade_drawer)
+                                                    .withDrawerWidthDp(72)
+                                                    .withGenerateMiniDrawer(true)
+                                                    .withAccountHeader(headerResult) //set the AccountHeader we created earlier for the header
+                                                    .addDrawerItems(
+                                                            new PrimaryDrawerItem().withName("Orders").withIcon(FontAwesome.Icon.faw_home).withBadge("22").withBadgeStyle(new BadgeStyle(Color.RED, Color.RED)).withIdentifier(2).withSelectable(false),
+                                                            new PrimaryDrawerItem().withName("Favourites").withIcon(FontAwesome.Icon.faw_gamepad).withIdentifier(3),
+                                                            new PrimaryDrawerItem().withName("Messages").withIcon(FontAwesome.Icon.faw_eye).withIdentifier(4),
+                                                            new PrimaryDrawerItem().withDescription("3 items").withName("draft").withIcon(GoogleMaterial.Icon.gmd_adb).withIdentifier(5),
+                                                            new SecondaryDrawerItem().withName("Fb Page").withIcon(GoogleMaterial.Icon.gmd_facebook).withTag("Bullhorn")
+                                                    ) // add the items we want to use with our Drawer
+                                                    .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                                                        @Override
+                                                        public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                                                            if (drawerItem instanceof Nameable) {
+                                                                Toast.makeText(HomeActivity.this, ((Nameable) drawerItem).getName().getText(HomeActivity.this), Toast.LENGTH_SHORT).show();
+                                                            }
+                                                            //we do not consume the event and want the Drawer to continue with the event chain
+                                                            return false;
+                                                        }
+                                                    })
+                                                    .withSavedInstance(savedInstanceState)
+                                                    .withShowDrawerOnFirstLaunch(true)
+                                                    .build();
+
+                                            //get the CrossfadeDrawerLayout which will be used as alternative DrawerLayout for the Drawer
+                                            //the CrossfadeDrawerLayout library can be found here: https://github.com/mikepenz/CrossfadeDrawerLayout
+                                            crossfadeDrawerLayout = (CrossfadeDrawerLayout) result.getDrawerLayout();
+
+                                            //define maxDrawerWidth
+                                            crossfadeDrawerLayout.setMaxWidthPx(DrawerUIUtils.getOptimalDrawerWidth(HomeActivity.this));
+                                            //add second view (which is the miniDrawer)
+                                            final MiniDrawer miniResult = result.getMiniDrawer();
+                                            //build the view for the MiniDrawer
+                                            View view = miniResult.build(HomeActivity.this);
+                                            //set the background of the MiniDrawer as this would be transparent
+                                            view.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(HomeActivity.this, com.mikepenz.materialdrawer.R.attr.material_drawer_background, com.mikepenz.materialdrawer.R.color.material_drawer_background));
+                                            //we do not have the MiniDrawer view during CrossfadeDrawerLayout creation so we will add it here
+                                            crossfadeDrawerLayout.getSmallView().addView(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+                                            //define the crossfader to be used with the miniDrawer. This is required to be able to automatically toggle open / close
+                                            miniResult.withCrossFader(new ICrossfader() {
+                                                @Override
+                                                public void crossfade() {
+                                                    boolean isFaded = isCrossfaded();
+                                                    crossfadeDrawerLayout.crossfade(400);
+
+                                                    //only close the drawer if we were already faded and want to close it now
+                                                    if (isFaded) {
+                                                        result.getDrawerLayout().closeDrawer(GravityCompat.START);
+                                                    }
+                                                }
+
+                                                @Override
+                                                public boolean isCrossfaded() {
+                                                    return crossfadeDrawerLayout.isCrossfaded();
+                                                }
+                                            });
 
                                             // Instance of first fragment
                                             SellerHomePageFragment sellerhomeFragment = new SellerHomePageFragment();
@@ -174,11 +340,16 @@ public class HomeActivity extends AppCompatActivity {
                                             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                                             ft.add(R.id.home_container, sellerhomeFragment);
                                             ft.commit();
+
                                             progress.dismiss();
+
 
                                             Intent intent =new Intent(HomeActivity.this,SellerIntroActivity.class);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                             startActivity(intent);
+
+
+
 
                                         }
 
@@ -277,85 +448,178 @@ public class HomeActivity extends AppCompatActivity {
             }
         }
 
+        if(Category.equals("")){
+            return;
+        }else if(Category.equals("Buyer")){
 
-        // Create a few sample profile
-        // NOTE you have to define the loader logic too. See the CustomApplication for more details
-        final IProfile profile = new ProfileDrawerItem().withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon("https://avatars3.githubusercontent.com/u/1476232?v=3&s=460");
-        final IProfile profile2 = new ProfileDrawerItem().withName("Bernat Borras").withEmail("alorma@github.com").withIcon(Uri.parse("https://avatars3.githubusercontent.com/u/887462?v=3&s=460"));
+            // add buyer nav-drawer
 
-        // Create the AccountHeader
-        headerResult = new AccountHeaderBuilder()
-                .withActivity(this)
-                .withHeaderBackground(R.drawable.header)
-                .addProfiles(
-                        profile, profile2
-                )
-                .withSavedInstance(savedInstanceState)
-                .build();
+            // Create a few sample profile
+            // NOTE you have to define the loader logic too. See the CustomApplication for more details
+            final IProfile profile = new ProfileDrawerItem().withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon("https://avatars3.githubusercontent.com/u/1476232?v=3&s=460");
+            final IProfile profile2 = new ProfileDrawerItem().withName("Bernat Borras").withEmail("alorma@github.com").withIcon(Uri.parse("https://avatars3.githubusercontent.com/u/887462?v=3&s=460"));
 
-        //Create the drawer
-        result = new DrawerBuilder()
-                .withActivity(this)
-                .withToolbar(toolbar)
-                .withHasStableIds(true)
-                .withDrawerLayout(R.layout.crossfade_drawer)
-                .withDrawerWidthDp(72)
-                .withGenerateMiniDrawer(true)
-                .withAccountHeader(headerResult) //set the AccountHeader we created earlier for the header
-                .addDrawerItems(
-                        new PrimaryDrawerItem().withName("Orders").withIcon(FontAwesome.Icon.faw_home).withBadge("22").withBadgeStyle(new BadgeStyle(Color.RED, Color.RED)).withIdentifier(2).withSelectable(false),
-                        new PrimaryDrawerItem().withName("Items").withIcon(FontAwesome.Icon.faw_gamepad).withIdentifier(3),
-                        new PrimaryDrawerItem().withName("Messages").withIcon(FontAwesome.Icon.faw_eye).withIdentifier(4),
-                        new PrimaryDrawerItem().withDescription("3 items").withName("draft").withIcon(GoogleMaterial.Icon.gmd_adb).withIdentifier(5),
-                        new SecondaryDrawerItem().withName("Fb Page").withIcon(GoogleMaterial.Icon.gmd_facebook).withTag("Bullhorn")
-                ) // add the items we want to use with our Drawer
-                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                    @Override
-                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        if (drawerItem instanceof Nameable) {
-                            Toast.makeText(HomeActivity.this, ((Nameable) drawerItem).getName().getText(HomeActivity.this), Toast.LENGTH_SHORT).show();
+            // Create the AccountHeader
+            headerResult = new AccountHeaderBuilder()
+                    .withActivity(this)
+                    .withHeaderBackground(R.drawable.header)
+                    .addProfiles(
+                            profile, profile2
+                    )
+                    .withSavedInstance(savedInstanceState)
+                    .build();
+
+            //Create the drawer
+            result = new DrawerBuilder()
+                    .withActivity(this)
+                    .withToolbar(toolbar)
+                    .withHasStableIds(true)
+                    .withDrawerLayout(R.layout.crossfade_drawer)
+                    .withDrawerWidthDp(72)
+                    .withGenerateMiniDrawer(true)
+                    .withAccountHeader(headerResult) //set the AccountHeader we created earlier for the header
+                    .addDrawerItems(
+                            new PrimaryDrawerItem().withName("Orders").withIcon(FontAwesome.Icon.faw_home).withBadge("22").withBadgeStyle(new BadgeStyle(Color.RED, Color.RED)).withIdentifier(2).withSelectable(false),
+                            new PrimaryDrawerItem().withName("Favourites").withIcon(FontAwesome.Icon.faw_gamepad).withIdentifier(3),
+                            new PrimaryDrawerItem().withName("Messages").withIcon(FontAwesome.Icon.faw_eye).withIdentifier(4),
+                            new PrimaryDrawerItem().withDescription("3 items").withName("draft").withIcon(GoogleMaterial.Icon.gmd_adb).withIdentifier(5),
+                            new SecondaryDrawerItem().withName("Fb Page").withIcon(GoogleMaterial.Icon.gmd_facebook).withTag("Bullhorn")
+                    ) // add the items we want to use with our Drawer
+                    .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                        @Override
+                        public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                            if (drawerItem instanceof Nameable) {
+                                Toast.makeText(HomeActivity.this, ((Nameable) drawerItem).getName().getText(HomeActivity.this), Toast.LENGTH_SHORT).show();
+                            }
+                            //we do not consume the event and want the Drawer to continue with the event chain
+                            return false;
                         }
-                        //we do not consume the event and want the Drawer to continue with the event chain
-                        return false;
+                    })
+                    .withSavedInstance(savedInstanceState)
+                    .withShowDrawerOnFirstLaunch(true)
+                    .build();
+
+            //get the CrossfadeDrawerLayout which will be used as alternative DrawerLayout for the Drawer
+            //the CrossfadeDrawerLayout library can be found here: https://github.com/mikepenz/CrossfadeDrawerLayout
+            crossfadeDrawerLayout = (CrossfadeDrawerLayout) result.getDrawerLayout();
+
+            //define maxDrawerWidth
+            crossfadeDrawerLayout.setMaxWidthPx(DrawerUIUtils.getOptimalDrawerWidth(this));
+            //add second view (which is the miniDrawer)
+            final MiniDrawer miniResult = result.getMiniDrawer();
+            //build the view for the MiniDrawer
+            View view = miniResult.build(this);
+            //set the background of the MiniDrawer as this would be transparent
+            view.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(this, com.mikepenz.materialdrawer.R.attr.material_drawer_background, com.mikepenz.materialdrawer.R.color.material_drawer_background));
+            //we do not have the MiniDrawer view during CrossfadeDrawerLayout creation so we will add it here
+            crossfadeDrawerLayout.getSmallView().addView(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+            //define the crossfader to be used with the miniDrawer. This is required to be able to automatically toggle open / close
+            miniResult.withCrossFader(new ICrossfader() {
+                @Override
+                public void crossfade() {
+                    boolean isFaded = isCrossfaded();
+                    crossfadeDrawerLayout.crossfade(400);
+
+                    //only close the drawer if we were already faded and want to close it now
+                    if (isFaded) {
+                        result.getDrawerLayout().closeDrawer(GravityCompat.START);
                     }
-                })
-                .withSavedInstance(savedInstanceState)
-                .withShowDrawerOnFirstLaunch(true)
-                .build();
-
-        //get the CrossfadeDrawerLayout which will be used as alternative DrawerLayout for the Drawer
-        //the CrossfadeDrawerLayout library can be found here: https://github.com/mikepenz/CrossfadeDrawerLayout
-        crossfadeDrawerLayout = (CrossfadeDrawerLayout) result.getDrawerLayout();
-
-        //define maxDrawerWidth
-        crossfadeDrawerLayout.setMaxWidthPx(DrawerUIUtils.getOptimalDrawerWidth(this));
-        //add second view (which is the miniDrawer)
-        final MiniDrawer miniResult = result.getMiniDrawer();
-        //build the view for the MiniDrawer
-        View view = miniResult.build(this);
-        //set the background of the MiniDrawer as this would be transparent
-        view.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(this, com.mikepenz.materialdrawer.R.attr.material_drawer_background, com.mikepenz.materialdrawer.R.color.material_drawer_background));
-        //we do not have the MiniDrawer view during CrossfadeDrawerLayout creation so we will add it here
-        crossfadeDrawerLayout.getSmallView().addView(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-
-        //define the crossfader to be used with the miniDrawer. This is required to be able to automatically toggle open / close
-        miniResult.withCrossFader(new ICrossfader() {
-            @Override
-            public void crossfade() {
-                boolean isFaded = isCrossfaded();
-                crossfadeDrawerLayout.crossfade(400);
-
-                //only close the drawer if we were already faded and want to close it now
-                if (isFaded) {
-                    result.getDrawerLayout().closeDrawer(GravityCompat.START);
                 }
-            }
 
-            @Override
-            public boolean isCrossfaded() {
-                return crossfadeDrawerLayout.isCrossfaded();
-            }
-        });
+                @Override
+                public boolean isCrossfaded() {
+                    return crossfadeDrawerLayout.isCrossfaded();
+                }
+            });
+
+
+        }else{
+
+
+            // Create a few sample profile
+            // NOTE you have to define the loader logic too. See the CustomApplication for more details
+            final IProfile profile = new ProfileDrawerItem().withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon("https://avatars3.githubusercontent.com/u/1476232?v=3&s=460");
+            final IProfile profile2 = new ProfileDrawerItem().withName("Bernat Borras").withEmail("alorma@github.com").withIcon(Uri.parse("https://avatars3.githubusercontent.com/u/887462?v=3&s=460"));
+
+            // Create the AccountHeader
+            headerResult = new AccountHeaderBuilder()
+                    .withActivity(this)
+                    .withHeaderBackground(R.drawable.header)
+                    .addProfiles(
+                            profile, profile2
+                    )
+                    .withSavedInstance(savedInstanceState)
+                    .build();
+
+            //Create the drawer
+            result = new DrawerBuilder()
+                    .withActivity(this)
+                    .withToolbar(toolbar)
+                    .withHasStableIds(true)
+                    .withDrawerLayout(R.layout.crossfade_drawer)
+                    .withDrawerWidthDp(72)
+                    .withGenerateMiniDrawer(true)
+                    .withAccountHeader(headerResult) //set the AccountHeader we created earlier for the header
+                    .addDrawerItems(
+                            new PrimaryDrawerItem().withName("Orders").withIcon(FontAwesome.Icon.faw_home).withBadge("22").withBadgeStyle(new BadgeStyle(Color.RED, Color.RED)).withIdentifier(2).withSelectable(false),
+                            new PrimaryDrawerItem().withName("Items").withIcon(FontAwesome.Icon.faw_gamepad).withIdentifier(3),
+                            new PrimaryDrawerItem().withName("Messages").withIcon(FontAwesome.Icon.faw_eye).withIdentifier(4),
+                            new PrimaryDrawerItem().withDescription("3 items").withName("draft").withIcon(GoogleMaterial.Icon.gmd_adb).withIdentifier(5),
+                            new SecondaryDrawerItem().withName("Fb Page").withIcon(GoogleMaterial.Icon.gmd_facebook).withTag("Bullhorn")
+                    ) // add the items we want to use with our Drawer
+                    .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                        @Override
+                        public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                            if (drawerItem instanceof Nameable) {
+                                Toast.makeText(HomeActivity.this, ((Nameable) drawerItem).getName().getText(HomeActivity.this), Toast.LENGTH_SHORT).show();
+                            }
+                            //we do not consume the event and want the Drawer to continue with the event chain
+                            return false;
+                        }
+                    })
+                    .withSavedInstance(savedInstanceState)
+                    .withShowDrawerOnFirstLaunch(true)
+                    .build();
+
+            //get the CrossfadeDrawerLayout which will be used as alternative DrawerLayout for the Drawer
+            //the CrossfadeDrawerLayout library can be found here: https://github.com/mikepenz/CrossfadeDrawerLayout
+            crossfadeDrawerLayout = (CrossfadeDrawerLayout) result.getDrawerLayout();
+
+            //define maxDrawerWidth
+            crossfadeDrawerLayout.setMaxWidthPx(DrawerUIUtils.getOptimalDrawerWidth(this));
+            //add second view (which is the miniDrawer)
+            final MiniDrawer miniResult = result.getMiniDrawer();
+            //build the view for the MiniDrawer
+            View view = miniResult.build(this);
+            //set the background of the MiniDrawer as this would be transparent
+            view.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(this, com.mikepenz.materialdrawer.R.attr.material_drawer_background, com.mikepenz.materialdrawer.R.color.material_drawer_background));
+            //we do not have the MiniDrawer view during CrossfadeDrawerLayout creation so we will add it here
+            crossfadeDrawerLayout.getSmallView().addView(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+            //define the crossfader to be used with the miniDrawer. This is required to be able to automatically toggle open / close
+            miniResult.withCrossFader(new ICrossfader() {
+                @Override
+                public void crossfade() {
+                    boolean isFaded = isCrossfaded();
+                    crossfadeDrawerLayout.crossfade(400);
+
+                    //only close the drawer if we were already faded and want to close it now
+                    if (isFaded) {
+                        result.getDrawerLayout().closeDrawer(GravityCompat.START);
+                    }
+                }
+
+                @Override
+                public boolean isCrossfaded() {
+                    return crossfadeDrawerLayout.isCrossfaded();
+                }
+            });
+
+
+        }
+
+
 
 
 

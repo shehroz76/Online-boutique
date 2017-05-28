@@ -1,6 +1,5 @@
 package com.example.msk.onlinebotique.Adapter;
 
-import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.msk.onlinebotique.Fragments.ProductDetailFragment;
 import com.example.msk.onlinebotique.Fragments.SellerProductDetailFragment;
 import com.example.msk.onlinebotique.Pojo.ProductDetail;
 import com.example.msk.onlinebotique.R;

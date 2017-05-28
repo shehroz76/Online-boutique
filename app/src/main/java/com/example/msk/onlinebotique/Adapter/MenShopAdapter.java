@@ -1,7 +1,5 @@
 package com.example.msk.onlinebotique.Adapter;
 
-import android.content.Context;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.msk.onlinebotique.Fragments.ProductDetailFragment;
+import com.example.msk.onlinebotique.Fragments.BuyerProductDetailFragment;
 import com.example.msk.onlinebotique.Pojo.Shop;
 import com.example.msk.onlinebotique.R;
 
@@ -74,7 +72,7 @@ public class MenShopAdapter extends RecyclerView.Adapter<MenShopAdapter.MenShopV
         public void onClick(View v) {
 
             AppCompatActivity activity = (AppCompatActivity) v.getContext();
-            ProductDetailFragment myFragment = new ProductDetailFragment();
+            BuyerProductDetailFragment myFragment = new BuyerProductDetailFragment();
             //Create a bundle to pass data, add data, set the bundle to your fragment and:
             activity.getSupportFragmentManager().beginTransaction().replace(R.id.home_container, myFragment).addToBackStack(null).commit();
 

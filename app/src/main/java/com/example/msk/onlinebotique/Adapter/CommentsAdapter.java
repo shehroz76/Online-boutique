@@ -65,7 +65,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
         public void onClick(View v) {
 //
 //        AppCompatActivity activity = (AppCompatActivity) v.getContext();
-//        ProductDetailFragment myFragment = new ProductDetailFragment();
+//        BuyerProductDetailFragment myFragment = new BuyerProductDetailFragment();
 //        //Create a bundle to pass data, add data, set the bundle to your fragment and:
 //        activity.getSupportFragmentManager().beginTransaction().replace(R.id.home_container, myFragment).addToBackStack(null).commit();
 
