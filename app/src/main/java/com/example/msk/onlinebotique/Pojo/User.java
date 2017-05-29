@@ -15,14 +15,24 @@ public class User {
     private String User_Id;
     private String User_Pass;
     private String User_UId;
+    private String isShopOpened;
+
 
     public User() {
     }
 
 
+    public String getIsShopOpened() {
+        return isShopOpened;
+    }
+
+    public void setIsShopOpened(String isShopOpened) {
+        this.isShopOpened = isShopOpened;
+    }
+
     public User(String name, String email, String country, String city,
                 String category, String profile_Pic, String user_Id,
-                String user_Pass, String user_UId) {
+                String user_Pass, String user_UId , String IsShopOpened) {
         Name = name;
         Email = email;
         Country = country;
@@ -32,6 +42,7 @@ public class User {
         User_Id = user_Id;
         User_Pass = user_Pass;
         User_UId = user_UId;
+        isShopOpened = IsShopOpened;
     }
 
 

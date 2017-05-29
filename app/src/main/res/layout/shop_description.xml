@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:id="@+id/root">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -47,14 +48,34 @@
     </android.support.design.widget.TextInputLayout>
 
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Choose Shop Category"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="10dp"
-        android:id="@+id/shop_category"
-        android:textSize="17sp"/>
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Choose Shop Category"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/shop_category"
+            android:textSize="17sp"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Not Selected yet"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/choose_shop_category"
+            android:textSize="14sp"/>
+
+
+    </LinearLayout>
+
+
 
     <View
         android:layout_width="match_parent"
@@ -72,17 +93,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:digits="abcdefghijklmnopqrstuvwxyz1234567890"
+
             android:hint="Enter Shop Description"
             android:imeOptions="actionNext"
-            android:maxLength="20"
-            android:maxLines="10"
-            android:lines="8"
+            android:maxLength="200"
+            android:maxLines="8"
+            android:lines="3"
             android:inputType="textMultiLine"
             android:nextFocusDown="@+id/shop_category"
             android:padding="8dp"
             android:gravity="top|left"
-            android:minLines="5"
+            android:minLines="4"
             android:text=""
             android:scrollbars="vertical"
             android:textSize="14sp" />

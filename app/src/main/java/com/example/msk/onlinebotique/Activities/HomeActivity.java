@@ -150,7 +150,15 @@ public class HomeActivity extends AppCompatActivity {
                                     mKeyStore.putString("password", user.getUser_Pass());
                                     mKeyStore.putBoolean("isEmailVeridied", isEmailVerifies);
 
+
+
                                     Category = user.getCategory();
+                                    String isShopOpened = user.getIsShopOpened();
+                                    if(isShopOpened.equals("true")){
+                                        isShopCreated = true;
+                                    }
+                                    mKeyStore.putBoolean("isShopCreated",isShopCreated);
+
 
 
                                     // Adding a Fragment
@@ -334,19 +342,32 @@ public class HomeActivity extends AppCompatActivity {
                                                 }
                                             });
 
-                                            // Instance of first fragment
-                                            SellerHomePageFragment sellerhomeFragment = new SellerHomePageFragment();
-                                            // Add Fragment to FrameLayout (flContainer), using FragmentManager
-                                            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                                            ft.add(R.id.home_container, sellerhomeFragment);
-                                            ft.commit();
+                                            if(isShopCreated){
 
-                                            progress.dismiss();
+                                                progress.dismiss();
+                                                // Instance of first fragment
+                                                SellerHomePageFragment sellerhomeFragment = new SellerHomePageFragment();
+                                                // Add Fragment to FrameLayout (flContainer), using FragmentManager
+                                                FragmentTransaction ft= getSupportFragmentManager().beginTransaction();
+                                                ft.add(R.id.home_container,sellerhomeFragment);
+                                                ft.commit();
 
 
-                                            Intent intent =new Intent(HomeActivity.this,SellerIntroActivity.class);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                            startActivity(intent);
+                                            }else {
+
+                                                // Instance of first fragment
+                                                SellerHomePageFragment sellerhomeFragment = new SellerHomePageFragment();
+                                                // Add Fragment to FrameLayout (flContainer), using FragmentManager
+                                                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                                                ft.add(R.id.home_container, sellerhomeFragment);
+                                                ft.commit();
+                                                progress.dismiss();
+
+                                                Intent intent = new Intent(HomeActivity.this, SellerIntroActivity.class);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                startActivity(intent);
+
+                                            }
 
 
 

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.example.msk.onlinebotique.Adapter.ShopProductAdapter;
 import com.example.msk.onlinebotique.Pojo.ProductDetail;
 import com.example.msk.onlinebotique.R;
+import com.example.msk.onlinebotique.Utilities.KeyStore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,12 +30,16 @@ public class sellerProductAddFragment extends Fragment {
     }
 
 
+    private KeyStore mkKeyStore;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.add_product,container,false);
         ButterKnife.bind(this,view);
+
+        mkKeyStore = KeyStore.getInstance(getContext());
 
         return  view;
 

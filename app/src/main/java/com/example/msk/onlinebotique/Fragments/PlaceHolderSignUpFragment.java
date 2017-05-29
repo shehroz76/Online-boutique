@@ -194,6 +194,7 @@ public class PlaceHolderSignUpFragment extends android.support.v4.app.Fragment {
                                 current_user_db.child("User_UId").setValue(user_id);
                                 current_user_db.child("User_Id").setValue(userId);
                                 current_user_db.child("User_Pass").setValue(userConfirmPassword);
+                                current_user_db.child("isShopOpened").setValue("false");
                                 mProgress.dismiss();
 
                                 mEmailVerfiedDatabaseRefernce.child("Email").child("isEmailVerified").setValue("0");;
