@@ -261,7 +261,10 @@ public class SetupFragment extends android.support.v4.app.Fragment {
                     }else if(seller_buyer.equals("0")){
 
                         SellerOrbuyer = "Seller";
+                        mDatabaseUsers.child(UserUid).child("isShopOpened").setValue("false");
                     }
+
+
 
                     mDatabaseUsers.child(UserUid).child("Profile_Pic").setValue(profilePicUrl);
                     mDatabaseUsers.child(UserUid).child("Category").setValue(SellerOrbuyer);

@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.msk.onlinebotique.Adapter.ShopProductAdapter;
 import com.example.msk.onlinebotique.Pojo.ProductDetail;
 import com.example.msk.onlinebotique.R;
 import com.example.msk.onlinebotique.Utilities.KeyStore;
@@ -36,7 +35,7 @@ public class sellerProductAddFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.add_product,container,false);
+        View view = inflater.inflate(R.layout.seller_add_product,container,false);
         ButterKnife.bind(this,view);
 
         mkKeyStore = KeyStore.getInstance(getContext());

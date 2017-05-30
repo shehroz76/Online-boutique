@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ScrollView android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+<LinearLayout
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -31,11 +39,30 @@
         android:id="@+id/view2"
         android:background="@android:color/darker_gray"/>
 
-    <ImageView
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:src="@drawable/shop_placeholder"
-        android:id="@+id/upload_product_pic"/>
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/shop_placeholder"
+            android:id="@+id/upload_product_pic"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/add_product_pic_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            app:backgroundTint="#FFF7F7F4"
+            android:src="@drawable/ic_action_camera"/>
+
+
+    </RelativeLayout>
+
+
 
     <View
         android:layout_width="match_parent"
@@ -105,7 +132,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="5dp"
-            android:digits="abcdefghijklmnopqrstuvwxyz1234567890"
+            android:digits="abcdefghijklmnopqrstuvwxyz1234567890 "
             android:hint="Enter Product Name"
             android:imeOptions="actionNext"
             android:maxLength="20"
@@ -127,7 +154,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="5dp"
-            android:digits="abcdefghijklmnopqrstuvwxyz1234567890"
+            android:digits="abcdefghijklmnopqrstuvwxyz1234567890 "
             android:hint="Enter Product Category"
             android:imeOptions="actionNext"
             android:maxLength="20"
@@ -148,7 +175,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:digits="abcdefghijklmnopqrstuvwxyz1234567890"
+            android:digits="abcdefghijklmnopqrstuvwxyz1234567890 "
             android:hint="Enter Price"
             android:imeOptions="actionDone"
             android:inputType="number"
@@ -162,15 +189,22 @@
     </android.support.design.widget.TextInputLayout>
 
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Done"
-        android:id="@+id/product_done"
-        android:background="#f4eeee"
-        android:padding="10dp"
-        />
+
 
 </LinearLayout>
 
     </ScrollView>
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Done"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/product_done"
+            android:background="#f4eeee"
+            android:padding="10dp"
+            />
+
+    </RelativeLayout>
+

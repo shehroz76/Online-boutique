@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -73,6 +74,7 @@ public class HomeActivity extends AppCompatActivity {
     private String Category = "";
     private Boolean isShopCreated = false;
     private boolean isEmailVerifies = false;
+    private boolean isfragmentAtteched = false;
     private ProgressDialog progress;
 //    ProgressDialog progress;
 
@@ -342,42 +344,58 @@ public class HomeActivity extends AppCompatActivity {
                                                 }
                                             });
 
-                                            if(isShopCreated){
-
-                                                progress.dismiss();
-                                                // Instance of first fragment
-                                                SellerHomePageFragment sellerhomeFragment = new SellerHomePageFragment();
-                                                // Add Fragment to FrameLayout (flContainer), using FragmentManager
-                                                FragmentTransaction ft= getSupportFragmentManager().beginTransaction();
-                                                ft.add(R.id.home_container,sellerhomeFragment);
-                                                ft.commit();
+                                                if (isShopCreated) {
 
 
-                                            }else {
+                                                    if (progress != null) {
+                                                        progress.dismiss();
+                                                    }
 
-                                                // Instance of first fragment
-                                                SellerHomePageFragment sellerhomeFragment = new SellerHomePageFragment();
-                                                // Add Fragment to FrameLayout (flContainer), using FragmentManager
-                                                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                                                ft.add(R.id.home_container, sellerhomeFragment);
-                                                ft.commit();
-                                                progress.dismiss();
 
-                                                Intent intent = new Intent(HomeActivity.this, SellerIntroActivity.class);
-                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                startActivity(intent);
+                                                    isfragmentAtteched = mKeyStore.getBoolean("isfragment");
+
+                                                    if (!isfragmentAtteched) {
+                                                        // Instance of first fragment
+                                                        SellerHomePageFragment sellerhomeFragment = new SellerHomePageFragment();
+                                                        // Add Fragment to FrameLayout (flContainer), using FragmentManager
+                                                        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+
+                                                        ft.add(R.id.home_container, sellerhomeFragment, "homefragment");
+                                                        ft.commit();
+
+                                                    }
+                                                    return;
+
+                                                } else {
+                                                    if (progress != null) {
+                                                        progress.dismiss();
+                                                    }
+
+
+                                                    // Instance of first fragment
+                                                    SellerHomePageFragment sellerhomeFragment = new SellerHomePageFragment();
+                                                    // Add Fragment to FrameLayout (flContainer), using FragmentManager
+                                                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                                                    ft.add(R.id.home_container, sellerhomeFragment , "homefragment");
+                                                    ft.commit();
+                                                    mKeyStore.putBoolean("isfragment",true);
+
+                                                    Intent intent = new Intent(HomeActivity.this, SellerIntroActivity.class);
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                    startActivity(intent);
+
+
+                                                }
+
 
                                             }
-
-
-
 
                                         }
 
 
                                     }
 
-                                }
+
 
 
                                 @Override
@@ -452,17 +470,25 @@ public class HomeActivity extends AppCompatActivity {
 
                 }else {
 
+//                    // Instance of first fragment
+//                    SellerHomePageFragment sellerhomeFragment = new SellerHomePageFragment();
+//                    // Add Fragment to FrameLayout (flContainer), using FragmentManager
+//                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//                    ft.add(R.id.home_container, sellerhomeFragment);
+//                    ft.commit();
+                    progress.dismiss();
+
+                    Intent intent = new Intent(HomeActivity.this, SellerIntroActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+
                     // Instance of first fragment
                     SellerHomePageFragment sellerhomeFragment = new SellerHomePageFragment();
                     // Add Fragment to FrameLayout (flContainer), using FragmentManager
                     FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                     ft.add(R.id.home_container, sellerhomeFragment);
                     ft.commit();
-                    progress.dismiss();
 
-                    Intent intent = new Intent(HomeActivity.this, SellerIntroActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
 
                 }
 
@@ -639,13 +665,9 @@ public class HomeActivity extends AppCompatActivity {
 
 
         }
-
-
-
-
-
-
     }
+
+
 
 
     @Override
@@ -660,6 +682,12 @@ public class HomeActivity extends AppCompatActivity {
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
+
+        if (progress != null) {
+            progress.dismiss();
+            progress = null;
+        }
+
     }
 
     private boolean checkIfEmailVerified()

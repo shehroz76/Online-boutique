@@ -79,7 +79,7 @@ public class KeyStore {
         editor.commit();
     }
 
-    public void remove(){
+    public void remove(String fileName){
         SharedPreferences.Editor editor;
         editor = sharedPreferences.edit();
 
