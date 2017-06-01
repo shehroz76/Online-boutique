@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ScrollView android:id="@+id/mainScrollView"
+        android:layout_width="fill_parent" android:layout_height="fill_parent"
+        android:layout_weight="1" xmlns:android="http://schemas.android.com/apk/res/android"
+        android:fillViewport="true">
 
 <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+  >
 
-    <ScrollView android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-
-<LinearLayout
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:id="@+id/l1"
         android:gravity="center">
 
         <TextView
@@ -35,14 +38,16 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_above="@+id/total_coast"
+        android:layout_below="@+id/l1"
         android:id="@+id/view2"
         android:background="@android:color/darker_gray"/>
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view2"
+        android:id="@+id/r1">
 
         <ImageView
             android:layout_width="match_parent"
@@ -67,13 +72,16 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_above="@+id/total_coast"
+        android:layout_below="@+id/r1"
         android:id="@+id/view1"
         android:background="@android:color/darker_gray"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:id="@+id/l2"
+        android:layout_below="@+id/r1"
         android:orientation="horizontal">
 
         <ImageView
@@ -121,10 +129,14 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:id="@+id/view3"
+        android:layout_below="@+id/l2"
         android:background="@android:color/darker_gray"/>
+
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/e1"
+        android:layout_below="@+id/view3">
 
         <EditText
             android:id="@+id/editText_ProductName"
@@ -146,7 +158,9 @@
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/e1"
+        android:id="@+id/e2">
 
         <EditText
             android:id="@+id/editText_ProductCategory"
@@ -168,32 +182,31 @@
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/e3"
+        android:layout_below="@+id/e2">
 
         <EditText
             android:id="@+id/editText_ProductPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="5dp"
             android:digits="abcdefghijklmnopqrstuvwxyz1234567890 "
             android:hint="Enter Price"
-            android:imeOptions="actionDone"
+
             android:inputType="number"
             android:maxLength="20"
             android:maxLines="1"
-            android:nextFocusDown="@+id/product_done"
+
             android:padding="15dp"
             android:singleLine="true"
             android:text=""
             android:textSize="14sp" />
+
     </android.support.design.widget.TextInputLayout>
 
 
-
-
-</LinearLayout>
-
-    </ScrollView>
 
 
         <Button
@@ -208,3 +221,6 @@
 
     </RelativeLayout>
 
+    </ScrollView>
+
+</LinearLayout>

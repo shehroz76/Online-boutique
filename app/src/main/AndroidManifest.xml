@@ -33,6 +33,7 @@
             android:value=" AIzaSyBxB_75_vt6CC0mBmVDJ7lswNsEW2S-jiw " />
 
         <activity android:name=".Activities.HomeActivity"
+            android:windowSoftInputMode="adjustPan"
             android:theme="@style/MaterialDrawerTheme.Light">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
