@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.msk.onlinebotique.Fragments.SellerProductDetailFragment;
 import com.example.msk.onlinebotique.Pojo.ProductDetail;
+import com.example.msk.onlinebotique.Pojo.SellerProductDetail;
 import com.example.msk.onlinebotique.R;
 
 import java.util.List;
@@ -21,9 +22,9 @@ import java.util.List;
 public class ShopProductAdapter extends RecyclerView.Adapter<ShopProductAdapter.ShopProductViewholder> {
 
 
-    private List<ProductDetail> mProductDetailslist;
+    private List<SellerProductDetail> mProductDetailslist;
 
-    public ShopProductAdapter(List<ProductDetail> mProductDetailslist) {
+    public ShopProductAdapter(List<SellerProductDetail> mProductDetailslist) {
         this.mProductDetailslist = mProductDetailslist;
     }
 
@@ -38,7 +39,7 @@ public class ShopProductAdapter extends RecyclerView.Adapter<ShopProductAdapter.
     @Override
     public void onBindViewHolder(ShopProductViewholder holder, int position) {
 
-        ProductDetail productDetail = mProductDetailslist.get(position);
+        SellerProductDetail productDetail = mProductDetailslist.get(position);
 
     }
 

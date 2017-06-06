@@ -43,7 +43,7 @@ import static android.app.Activity.RESULT_OK;
 
 public class sellerProductAddFragment extends Fragment {
 
-    public static List<ProductDetail>  mshopProductList;
+
     private String mProductNamestring,mProductCategorystring,mProductPricestring;
 
     private DatabaseReference mSellerAddProductDatabaseReference;
@@ -115,12 +115,23 @@ public class sellerProductAddFragment extends Fragment {
         View view = inflater.inflate(R.layout.seller_add_product,container,false);
         ButterKnife.bind(this,view);
 
+        mProgress = new ProgressDialog(getActivity());
+
+        mkKeyStore = KeyStore.getInstance(getContext());
+
+        Uuid = mkKeyStore.getString("User_UId");
+
         mSellerAddProductDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Products");
         mStorageProductImages = FirebaseStorage.getInstance().getReference();
 
-        mkKeyStore = KeyStore.getInstance(getContext());
-        Uuid = mkKeyStore.getString("User_UId");
-        curentUserProducts = mSellerAddProductDatabaseReference.child(Uuid).push();
+
+
+        String ShopName= mkKeyStore.getString("ShopName");
+
+
+        String ProductNode = ShopName;
+
+        curentUserProducts = mSellerAddProductDatabaseReference.child(ProductNode).push();
 
 
         return  view;
@@ -130,7 +141,7 @@ public class sellerProductAddFragment extends Fragment {
     @OnClick(R.id.product_done)
     public void done(){
 
-        populatedList();
+
         addproduct();
 
 
@@ -157,6 +168,9 @@ public class sellerProductAddFragment extends Fragment {
         if(!mProductPricestring.equals("") || !mProductCategorystring.equals("") || !mProductNamestring.equals("") || mImageUriMain!=null){
 
 
+            mProgress.setMessage("Uploading..");
+            mProgress.setCanceledOnTouchOutside(false);
+            mProgress.show();
 
             final StorageReference imageFilePath1 = mStorageProductImages.child("Product Images").child(mImageUri1.getLastPathSegment());
             imageFilePath1.putFile(mImageUri1).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -166,11 +180,18 @@ public class sellerProductAddFragment extends Fragment {
 
                     String profilePicUrl1 = taskSnapshot.getDownloadUrl().toString();
 
-                    Toast.makeText(getActivity(),"uploading 1",Toast.LENGTH_SHORT).show();
                     curentUserProducts.child("Product_Name").setValue(mProductNamestring);
                     curentUserProducts.child("Product_Type").setValue(mProductCategorystring);
                     curentUserProducts.child("Product_price").setValue(mProductPricestring);
                     curentUserProducts.child("Image1").setValue(profilePicUrl1);
+
+                    if(mImageUri2==null){
+
+                        mProgress.dismiss();
+
+                        // opened previous fragment
+                        getActivity().onBackPressed();
+                    }
 
 
 
@@ -184,10 +205,18 @@ public class sellerProductAddFragment extends Fragment {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                        Toast.makeText(getActivity(),"uploading 2",Toast.LENGTH_SHORT).show();
 
                         String profilePicUrl2 = taskSnapshot.getDownloadUrl().toString();
                         curentUserProducts.child("Image2").setValue(profilePicUrl2);
+
+                        if(mImageUri3==null){
+
+                            mProgress.dismiss();
+
+                            // opened previous fragment
+                            getActivity().onBackPressed();
+                        }
+
 
 
                     }
@@ -201,10 +230,18 @@ public class sellerProductAddFragment extends Fragment {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                        Toast.makeText(getActivity(),"uploading 3",Toast.LENGTH_SHORT).show();
 
                         String profilePicUrl3 = taskSnapshot.getDownloadUrl().toString();
                         curentUserProducts.child("Image3").setValue(profilePicUrl3);
+
+                        if(mImageUri4==null){
+
+                            mProgress.dismiss();
+
+                            // opened previous fragment
+                            getActivity().onBackPressed();
+                        }
+
 
                     }
                 });
@@ -217,10 +254,18 @@ public class sellerProductAddFragment extends Fragment {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                        Toast.makeText(getActivity(),"uploading 4",Toast.LENGTH_SHORT).show();
 
                         String profilePicUrl4 = taskSnapshot.getDownloadUrl().toString();
                         curentUserProducts.child("Image4").setValue(profilePicUrl4);
+
+                        if(mImageUri5==null){
+
+                            mProgress.dismiss();
+
+                            // opened previous fragment
+                            getActivity().onBackPressed();
+                        }
+
 
                     }
                 });
@@ -234,10 +279,18 @@ public class sellerProductAddFragment extends Fragment {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                        Toast.makeText(getActivity(),"uploading 5",Toast.LENGTH_SHORT).show();
 
                         String profilePicUrl5 = taskSnapshot.getDownloadUrl().toString();
                         curentUserProducts.child("Image5").setValue(profilePicUrl5);
+
+                        if(mImageUri6==null){
+
+                            mProgress.dismiss();
+
+                            // opened previous fragment
+                            getActivity().onBackPressed();
+                        }
+
 
                     }
                 });
@@ -250,18 +303,20 @@ public class sellerProductAddFragment extends Fragment {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                        Toast.makeText(getActivity(),"uploading 6",Toast.LENGTH_SHORT).show();
 
                         String profilePicUrl6 = taskSnapshot.getDownloadUrl().toString();
                         curentUserProducts.child("Image6").setValue(profilePicUrl6);
+
+                        mProgress.dismiss();
+
+                        // opened previous fragment
+                        getActivity().onBackPressed();
 
                     }
                 });
 
             }
 
-            // opened previous fragment
-//            getActivity().onBackPressed();
 
 
         }
@@ -343,17 +398,6 @@ public class sellerProductAddFragment extends Fragment {
     }
 
 
-    private void populatedList(){
-        mshopProductList = new ArrayList<ProductDetail>();
-        for(int i=0;i<20;i++)
-        {
-            ProductDetail productDetail = new ProductDetail();
-            productDetail.setProduct_name("Item "+i);
-//            shop.setItemImage("FName " + i);
-                mshopProductList.add(productDetail);
 
-        }
-
-    }
 
 }

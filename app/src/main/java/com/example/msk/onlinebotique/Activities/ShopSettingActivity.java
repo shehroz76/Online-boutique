@@ -86,6 +86,7 @@ public class ShopSettingActivity extends AppCompatActivity implements OnMapReady
 
     private DatabaseReference mShopDatabaseReference;
     private DatabaseReference mUserInfoDatabaseReference;
+    private DatabaseReference mShopInfoDatabaseReference;
     private StorageReference mStorageShopImage;
 
     @BindView(R.id.editText_ShopName)
@@ -119,6 +120,7 @@ public class ShopSettingActivity extends AppCompatActivity implements OnMapReady
 
         mShopDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Shops");
         mUserInfoDatabaseReference = FirebaseDatabase.getInstance().getReference().child("USers_Info");
+        mShopInfoDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Shop_Info");
         mStorageShopImage = FirebaseStorage.getInstance().getReference();
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -142,7 +144,8 @@ public class ShopSettingActivity extends AppCompatActivity implements OnMapReady
         mShopCreated = true;
         mkKeyStore.putBoolean("isShopCreated", mShopCreated);
 
-        String ShopName11 = shopName.getText().toString().trim();
+        final String ShopName11 = shopName.getText().toString().trim();
+        mkKeyStore.putString("ShopName",ShopName11);
 
 
 
@@ -160,6 +163,10 @@ public class ShopSettingActivity extends AppCompatActivity implements OnMapReady
 
         } else {
 
+            mProgress.setMessage("Creating..");
+            mProgress.setCanceledOnTouchOutside(false);
+            mProgress.show();
+
             StorageReference imageFilepath = mStorageShopImage.child("Shop Cover Images").child(mImageUri1.getLastPathSegment());
             imageFilepath.putFile(mImageUri1).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -167,27 +174,32 @@ public class ShopSettingActivity extends AppCompatActivity implements OnMapReady
 
                     mUserInfoDatabaseReference.child(Uuid).child("isShopOpened").setValue("true");
 
+                    mShopInfoDatabaseReference.child(Uuid).child("shopName").setValue(ShopName);
+                    mShopInfoDatabaseReference.child(Uuid).child("shopOwner").setValue(OwenerName);
+
+
+
                     String profilePicUrl = taskSnapshot.getDownloadUrl().toString();
 
                     mShopDatabaseReference.child(ShopName).child("OwnerName").setValue(OwenerName);
                     mShopDatabaseReference.child(ShopName).child("OwnerUuid").setValue(Uuid);
-                    mShopDatabaseReference.child(ShopName).child("ShopName").setValue(ShopName);
+                    mShopDatabaseReference.child(ShopName).child("ShopName").setValue(ShopName11);
                     mShopDatabaseReference.child(ShopName).child("ShopDesc").setValue(ShopDesc);
                     mShopDatabaseReference.child(ShopName).child("ShopCategory").setValue(ShopCategory);
                     mShopDatabaseReference.child(ShopName).child("ShopImage").setValue(profilePicUrl);
                     mShopDatabaseReference.child(ShopName).child("Location").setValue("Latitude = " +lat + " Longitde = "+ Longit);
+
+                    mProgress.dismiss();
+                    Intent intent = new Intent(ShopSettingActivity.this, HomeActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+
 
                 }
             });
 
 
 
-
-
-
-            Intent intent = new Intent(ShopSettingActivity.this, HomeActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
 
 
         }
