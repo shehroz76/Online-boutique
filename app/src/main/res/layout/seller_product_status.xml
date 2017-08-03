@@ -78,13 +78,23 @@
             android:gravity="center">
 
           <TextView
-              android:layout_width="wrap_content"
+              android:layout_width="0dp"
               android:layout_height="wrap_content"
+              android:layout_weight="2"
               android:text="Orders"
+              android:paddingLeft="30dp"
               android:layout_margin="10dp"
               android:textSize="25sp"
               android:textStyle="bold"
               />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:id="@+id/orders"
+                android:src="@mipmap/drop_downarrow"
+                android:layout_weight="1"
+                />
 
 
 
@@ -100,6 +110,7 @@
         <com.example.msk.onlinebotique.Utilities.RecyclerViewEmptySupport
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            android:visibility="gone"
             android:id="@+id/ordersRecylerView"></com.example.msk.onlinebotique.Utilities.RecyclerViewEmptySupport>
 
 
@@ -112,12 +123,22 @@
             android:gravity="center">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="2"
                 android:text="Comments"
+                android:paddingLeft="30dp"
                 android:layout_margin="10dp"
                 android:textSize="25sp"
                 android:textStyle="bold"
+                />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:id="@+id/commets"
+                android:src="@mipmap/drop_downarrow"
                 />
 
         </LinearLayout>
@@ -132,6 +153,7 @@
         <com.example.msk.onlinebotique.Utilities.RecyclerViewEmptySupport
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            android:visibility="gone"
             android:id="@+id/commentsRecylerView"></com.example.msk.onlinebotique.Utilities.RecyclerViewEmptySupport>
 
 

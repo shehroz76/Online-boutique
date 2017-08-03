@@ -1,5 +1,6 @@
 package com.example.msk.onlinebotique.Fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -40,6 +41,7 @@ import butterknife.OnClick;
 public class SellerHomePageFragment extends Fragment {
 
     private String ShopName = "";
+    private String keysaved = "";
 
     public SellerHomePageFragment() {
     }
@@ -66,6 +68,7 @@ public class SellerHomePageFragment extends Fragment {
         ButterKnife.bind(this,view);
         emptyView = view.findViewById(R.id.empty_view);
         mKeyStore = KeyStore.getInstance(getContext());
+        keysaved = "";
 
         mSellerAddProductDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Products");
 
@@ -97,7 +100,7 @@ public class SellerHomePageFragment extends Fragment {
 
                         mRecyclerView.setHasFixedSize(true);
                         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
-                        shopProductAdapter = new ShopProductAdapter(mshopProductList);
+//                        shopProductAdapter = new ShopProductAdapter(mshopProductList);
 
 
                         populateProductList();
@@ -108,7 +111,7 @@ public class SellerHomePageFragment extends Fragment {
                         }else {
 
                             emptyView.setVisibility(View.GONE);
-                            shopProductAdapter = new ShopProductAdapter(mshopProductList);
+                            shopProductAdapter = new ShopProductAdapter(mshopProductList,getContext());
                             mRecyclerView.setAdapter(shopProductAdapter);
                         }
 
@@ -131,7 +134,7 @@ public class SellerHomePageFragment extends Fragment {
 
             mRecyclerView.setHasFixedSize(true);
             mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
-            shopProductAdapter = new ShopProductAdapter(mshopProductList);
+//            shopProductAdapter = new ShopProductAdapter(mshopProductList);
 
 
             populateProductList();
@@ -141,13 +144,12 @@ public class SellerHomePageFragment extends Fragment {
             }else {
 
                 emptyView.setVisibility(View.GONE);
-                shopProductAdapter = new ShopProductAdapter(mshopProductList);
+                shopProductAdapter = new ShopProductAdapter(mshopProductList,getContext());
                 mRecyclerView.setAdapter(shopProductAdapter);
             }
 
 
         }
-
 
 
 
@@ -174,41 +176,75 @@ public class SellerHomePageFragment extends Fragment {
 
     public void populateProductList(){
 
-        curentUserProducts.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+            curentUserProducts.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                    String key = dataSnapshot.getKey();
 
 
-                sellerProductDetail = dataSnapshot.getValue(SellerProductDetail.class);
-                mshopProductList.add(sellerProductDetail);
+                    if(key != keysaved) {
 
-                shopProductAdapter.notifyItemInserted(mshopProductList.size()-1);
+                        sellerProductDetail = dataSnapshot.getValue(SellerProductDetail.class);
+
+                        sellerProductDetail.setKey(key);
+
+                        mshopProductList.add(sellerProductDetail);
+
+                        shopProductAdapter.notifyItemInserted(mshopProductList.size() - 1);
+                        keysaved = mshopProductList.get(0).getKey();
+                    }
+                    else if(key ==keysaved){
 
 
-            }
 
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                        sellerProductDetail = dataSnapshot.getValue(SellerProductDetail.class);
 
-            }
+                        sellerProductDetail.setKey(key);
+                        mshopProductList.remove(0);
+                        shopProductAdapter.notifyItemRemoved(0);
+                        mshopProductList.add(sellerProductDetail);
 
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                        shopProductAdapter.notifyItemInserted(mshopProductList.size() - 1);
 
-            }
 
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
-            }
+                    }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
 
-    }
+                }
+
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+//                    sellerProductDetail = dataSnapshot.getValue(SellerProductDetail.class);
+//
+//
+//                    shopProductAdapter.notifyItemInserted(mshopProductList.size() - 1);
+
+
+                }
+
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+
 
 
     @Override

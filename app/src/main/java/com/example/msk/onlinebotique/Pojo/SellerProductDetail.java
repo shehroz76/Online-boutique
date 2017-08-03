@@ -17,11 +17,21 @@ public class SellerProductDetail {
     private String Product_Type ;
     private String Product_price ;
 
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    private String key;
+
 
 
     public SellerProductDetail(String image1, String image2, String image3
             , String image4, String image5, String image6, String product_Name,
-                               String product_Type, String product_price) {
+                               String product_Type, String product_price , String Key) {
         Image1 = image1;
         Image2 = image2;
         Image3 = image3;
@@ -31,6 +41,8 @@ public class SellerProductDetail {
         Product_Name = product_Name;
         Product_Type = product_Type;
         Product_price = product_price;
+        key = Key;
+
     }
 
     public SellerProductDetail() {
