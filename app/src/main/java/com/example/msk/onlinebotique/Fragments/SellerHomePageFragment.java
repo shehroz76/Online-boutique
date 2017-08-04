@@ -109,7 +109,6 @@ public class SellerHomePageFragment extends Fragment {
                             mRecyclerView.setEmptyView(emptyView);
                             emptyView.setVisibility(View.VISIBLE);
                         }else {
-
                             emptyView.setVisibility(View.GONE);
                             shopProductAdapter = new ShopProductAdapter(mshopProductList,getContext());
                             mRecyclerView.setAdapter(shopProductAdapter);
@@ -205,7 +204,6 @@ public class SellerHomePageFragment extends Fragment {
                         mshopProductList.remove(0);
                         shopProductAdapter.notifyItemRemoved(0);
                         mshopProductList.add(sellerProductDetail);
-
                         shopProductAdapter.notifyItemInserted(mshopProductList.size() - 1);
 
 

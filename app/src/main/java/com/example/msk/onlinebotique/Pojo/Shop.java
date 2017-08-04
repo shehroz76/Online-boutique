@@ -6,41 +6,91 @@ package com.example.msk.onlinebotique.Pojo;
 
 public class Shop {
 
-    private String ItemImage;
-    private String ItemPrice;
-    private String ItemName;
+    private String Location;
+    private String OwnerName;
+    private String OwnerUuid;
+    private String ShopCategory;
+    private String ShopDesc;
+    private String ShopImage;
+    private String ShopName;
+    private String key;
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
 
     public Shop() {
 
     }
 
-    public Shop(String itemImage, String itemPrice, String itemName) {
-        ItemImage = itemImage;
-        ItemPrice = itemPrice;
-        ItemName = itemName;
+    public Shop(String location, String ownerName, String ownerUuid, String shopCategory, String shopDesc, String shopImage, String shopName) {
+        Location = location;
+        OwnerName = ownerName;
+        OwnerUuid = ownerUuid;
+        ShopCategory = shopCategory;
+        ShopDesc = shopDesc;
+        ShopImage = shopImage;
+        ShopName = shopName;
+
     }
 
-    public String getItemImage() {
-        return ItemImage;
+    public String getLocation() {
+        return Location;
     }
 
-    public void setItemImage(String itemImage) {
-        ItemImage = itemImage;
+    public void setLocation(String location) {
+        Location = location;
     }
 
-    public String getItemPrice() {
-        return ItemPrice;
+    public String getOwnerName() {
+        return OwnerName;
     }
 
-    public void setItemPrice(String itemPrice) {
-        ItemPrice = itemPrice;
+    public void setOwnerName(String ownerName) {
+        OwnerName = ownerName;
     }
 
-    public String getItemName() {
-        return ItemName;
+    public String getOwnerUuid() {
+        return OwnerUuid;
     }
 
-    public void setItemName(String itemName) {
-        ItemName = itemName;
+    public void setOwnerUuid(String ownerUuid) {
+        OwnerUuid = ownerUuid;
+    }
+
+    public String getShopCategory() {
+        return ShopCategory;
+    }
+
+    public void setShopCategory(String shopCategory) {
+        ShopCategory = shopCategory;
+    }
+
+    public String getShopDesc() {
+        return ShopDesc;
+    }
+
+    public void setShopDesc(String shopDesc) {
+        ShopDesc = shopDesc;
+    }
+
+    public String getShopImage() {
+        return ShopImage;
+    }
+
+    public void setShopImage(String shopImage) {
+        ShopImage = shopImage;
+    }
+
+    public String getShopName() {
+        return ShopName;
+    }
+
+    public void setShopName(String shopName) {
+        ShopName = shopName;
     }
 }

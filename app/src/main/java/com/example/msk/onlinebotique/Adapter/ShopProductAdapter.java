@@ -34,6 +34,7 @@ public class ShopProductAdapter extends RecyclerView.Adapter<ShopProductAdapter.
     private String key = "";
     private ImageView mproductImage;
     private TextView mproductPrice;
+    private TextView mproductName;
     private SellerProductDetail productDetail;
 
 
@@ -56,8 +57,9 @@ public class ShopProductAdapter extends RecyclerView.Adapter<ShopProductAdapter.
         productDetail = mProductDetailslist.get(position);
         price = productDetail.getProduct_price();
         image = productDetail.getImage1();
+        mproductName.setText(productDetail.getProduct_Name());
 
-        mproductPrice.setText(price);
+        mproductPrice.setText(price+ " $");
         Picasso.with(mContext).load(image).into(mproductImage);
 
 
@@ -76,6 +78,7 @@ public class ShopProductAdapter extends RecyclerView.Adapter<ShopProductAdapter.
 
             mproductImage = (ImageView) itemView.findViewById(R.id.sellerProductImage);
             mproductPrice = (TextView) itemView.findViewById(R.id.sellerproductPrice);
+            mproductName = (TextView) itemView.findViewById(R.id.sellerproductName);
 
 
         }

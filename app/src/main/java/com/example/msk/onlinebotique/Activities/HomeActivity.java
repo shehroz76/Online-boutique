@@ -155,12 +155,15 @@ public class HomeActivity extends AppCompatActivity {
 
 
                                     Category = user.getCategory();
-                                    String isShopOpened = user.getIsShopOpened();
-                                    if(isShopOpened.equals("true")){
-                                        isShopCreated = true;
-                                    }
-                                    mKeyStore.putBoolean("isShopCreated",isShopCreated);
 
+
+                                    if(Category.equals("Seller")) {
+                                        String isShopOpened = user.getIsShopOpened();
+                                        if (isShopOpened.equals("true")) {
+                                            isShopCreated = true;
+                                        }
+                                        mKeyStore.putBoolean("isShopCreated", isShopCreated);
+                                    }
 
 
                                     // Adding a Fragment
@@ -168,14 +171,6 @@ public class HomeActivity extends AppCompatActivity {
                                     if (savedInstanceState == null) {
 
                                         if (Category.equals("Buyer")) {
-
-                                            // Instance of first fragment
-                                            BuyerHomePageFragment homeFragment = new BuyerHomePageFragment();
-                                            // Add Fragment to FrameLayout (flContainer), using FragmentManager
-                                            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                                            ft.add(R.id.home_container, homeFragment);
-                                            ft.commit();
-
 
                                             // add buyer nav-drawer
 
@@ -257,7 +252,19 @@ public class HomeActivity extends AppCompatActivity {
                                                     return crossfadeDrawerLayout.isCrossfaded();
                                                 }
                                             });
-                                            progress.dismiss();
+
+                                            if (progress != null) {
+                                                progress.dismiss();
+
+                                                // Instance of first fragment
+                                                BuyerHomePageFragment homeFragment = new BuyerHomePageFragment();
+                                                // Add Fragment to FrameLayout (flContainer), using FragmentManager
+                                                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                                                ft.add(R.id.home_container, homeFragment);
+                                                ft.commit();
+
+                                            }
+
 
 
 

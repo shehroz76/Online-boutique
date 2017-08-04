@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        >
+        
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:src="@drawable/shop_placeholder"
+            android:id="@+id/shopPicture"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/profile_placeholder"
+            android:padding="5dp"
+            android:id="@+id/owner_Image"
+            app:civ_border_width="1dp"
+            app:civ_border_color="#FF000000"/>
+
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="15dp"
+            android:text="Name"
+            android:textSize="12sp"
+            android:id="@+id/owner_name"
+            android:layout_marginLeft="20dp"
+            android:layout_below="@id/owner_Image"
+            />
+
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="15dp"
+            android:text="0123456789"
+            android:textSize="12sp"
+            android:id="@+id/contact_no"
+            android:layout_marginLeft="20dp"
+            android:layout_below="@id/owner_name"
+            />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:id="@+id/facebook"
+            android:src="@drawable/com_facebook_button_icon_blue"/>
+
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_below="@+id/facebook"
+            android:src="@mipmap/ic_launcher_mail"/>
+
+        
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:id="@+id/view"
+        android:background="@android:color/darker_gray"/>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView_Shop_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+</LinearLayout>
